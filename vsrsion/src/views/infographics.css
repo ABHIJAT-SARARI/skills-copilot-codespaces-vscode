@@ -24,6 +24,12 @@
   padding-bottom: var(--dl-space-space-threeunits);
   justify-content: space-between;
 }
+.infographics-navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
 .infographics-logo1 {
   color: rgb(255, 255, 255);
   font-size: 32px;
@@ -52,7 +58,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
 }
 .infographics-socials {
   gap: var(--dl-space-space-unit);
@@ -84,6 +90,9 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
+}
+.infographics-mobile-link {
+  color: #0b0b0b;
 }
 .infographics-nav2 {
   display: flex;
@@ -161,28 +170,10 @@
   width: var(--dl-size-size-xsmall);
   height: var(--dl-size-size-xsmall);
 }
-.infographics-navlink1 {
-  color: rgb(255, 255, 255);
-  animation-name: bounceIn;
-  animation-delay: 0s;
-  text-decoration: none;
-  animation-duration: 300ms;
-  animation-direction: normal;
-  animation-iteration-count: 1;
-  animation-timing-function: ease;
-}
-.infographics-navlink2 {
-  color: rgb(255, 255, 255);
-  animation-name: bounceIn;
-  animation-delay: 0s;
-  text-decoration: none;
-  animation-duration: 300ms;
-  animation-direction: normal;
-  animation-iteration-count: 1;
-  animation-timing-function: ease;
-}
+.infographics-navlink1,
+.infographics-navlink2,
 .infographics-navlink3 {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   animation-name: bounceIn;
   animation-delay: 0s;
   text-decoration: none;
@@ -190,6 +181,9 @@
   animation-direction: normal;
   animation-iteration-count: 1;
   animation-timing-function: ease;
+}
+.infographics-desktop-link {
+  color: rgb(251, 251, 251);
 }
 .infographics-hero {
   gap: var(--dl-space-space-fiveunits);
@@ -239,6 +233,7 @@
 .infographics-text16 {
   display: inline-block;
   font-weight: 700;
+  background-color: rgb(217, 217, 217);
 }
 .infographics-text17 {
   color: var(--dl-color-gray-black);
@@ -354,6 +349,30 @@
 .infographics-text44 {
   color: #ffffff;
   display: inline-block;
+}
+.infographics-label {
+  display: inline-block;
+  font-weight: 700;
+  background-color: rgb(217, 217, 217);
+  color: #ffffff;
+}
+.infographics-label:nth-child(1) {
+  color: #ef0707;
+}
+.infographics-label:nth-child(2) {
+  color: #00f553;
+}
+.infographics-label:nth-child(3) {
+  color: #003af9;
+}
+.infographics-label1 {
+  color: #ef0707;
+}
+.infographics-label2 {
+  color: #00f553;
+}
+.infographics-label3 {
+  color: #003af9;
 }
 @media(max-width: 991px) {
   .infographics-desktop-menu {

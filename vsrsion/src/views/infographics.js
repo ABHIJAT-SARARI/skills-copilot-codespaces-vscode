@@ -25,23 +25,35 @@ const Infographics = (props) => {
       </Helmet>
       <header className="home-header1">
         <header data-thq="thq-navbar" className="home-navbar">
-        <img src={logo} alt="Logo" className="navbar-logo" />
-          <div
-            data-thq="thq-navbar-nav"
-            data-role="Nav"
-            className="infographics-desktop-menu"
-          >
-            <nav
-              data-thq="thq-navbar-nav-links"
+          <img src={logo} alt="Logo" className="navbar-logo" />
+          <div className="infographics-navbar-content">
+            <div
+              data-thq="thq-navbar-nav"
               data-role="Nav"
-              className="infographics-nav1"
-            ></nav>
-          </div>
-          <div
-            data-thq="thq-navbar-btn-group"
-            className="infographics-btn-group"
-          >
-            <div className="infographics-socials"></div>
+              className="infographics-desktop-menu"
+            >
+              <nav
+                data-thq="thq-navbar-nav-links"
+                data-role="Nav"
+                className="infographics-nav1"
+              >
+                <Link to="/" className="infographics-navlink1 button-clean button infographics-desktop-link">
+                  Home
+                </Link>
+                <Link to="/articles" className="infographics-navlink2 button-clean button infographics-desktop-link">
+                  Articles
+                </Link>
+                <Link to="/about" className="infographics-navlink3 button-clean button infographics-desktop-link">
+                  About
+                </Link>
+              </nav>
+            </div>
+            <div
+              data-thq="thq-navbar-btn-group"
+              className="infographics-btn-group"
+            >
+              <div className="infographics-socials"></div>
+            </div>
           </div>
           <div data-thq="thq-burger-menu" className="infographics-burger-menu">
             <button className="button infographics-button">
@@ -72,9 +84,15 @@ const Infographics = (props) => {
                 data-role="Nav"
                 className="infographics-nav3"
               >
-                <span className="infographics-text10">About</span>
-                <span className="infographics-text11">Team</span>
-              
+                <Link to="/" className="infographics-navlink1 button-clean button infographics-mobile-link">
+                  Home
+                </Link>
+                <Link to="/articles" className="infographics-navlink2 button-clean button infographics-mobile-link">
+                  Articles
+                </Link>
+                <Link to="/about" className="infographics-navlink3 button-clean button infographics-mobile-link">
+                  About
+                </Link>
               </nav>
               <div className="infographics-container3">
                 <button className="infographics-login button">Register/Login</button>
@@ -101,18 +119,6 @@ const Infographics = (props) => {
               </svg>
             </div>
           </div>
-          <Link to="/" className="infographics-navlink1 button-clean button">
-            Home
-          </Link>
-          <Link
-            to="/articles"
-            className="infographics-navlink2 button-clean button"
-          >
-            Articles
-          </Link>
-          <Link to="/" className="infographics-navlink3 button-clean button">
-            About
-          </Link>
         </header>
       </header>
       <section className="infographics-hero">
@@ -134,65 +140,16 @@ const Infographics = (props) => {
             <span className="infographics-text15">Latest Creation</span>
           </Fragment>
         }
-        text={
-          <Fragment>
-            <span className="infographics-text16">Name: </span>
-          </Fragment>
-        }
-        text1={
-          <Fragment>
-            <span className="infographics-text17">Description: </span>
-          </Fragment>
-        }
-        text2={
-          <Fragment>
-            <span className="infographics-text18">Used In: </span>
-          </Fragment>
-        }
-        text3={
-          <Fragment>
-            <span className="infographics-text19">Labels:</span>
-          </Fragment>
-        }
-        text4={
-          <Fragment>
-            <span className="infographics-text20">Evolution </span>
-          </Fragment>
-        }
-        text5={
-          <Fragment>
-            <span className="infographics-text21">
-              Artificial Intelligence 
-            </span>
-          </Fragment>
-        }
-        text6={
-          <Fragment>
-            <span className="infographics-text22">Decades</span>
-          </Fragment>
-        }
-        text7={
-          <Fragment>
-            <span className="infographics-text23">
-               The AI Evolution: Key Milestones Through the Decades.
-            </span>
-          </Fragment>
-        }
-        text8={
-          <Fragment>
-            <span className="infographics-text24">
-              Explore how AI has transformed industries over time, from its
-              origins to groundbreaking innovations. 
-            </span>
-          </Fragment>
-        }
-        text9={
-          <Fragment>
-            <span className="infographics-text25">
-              Poster At BBAU, Medium Story.
-            </span>
-          </Fragment>
-        }
+        name="Placeholder Name"
+        description="Placeholder Description"
+        usedIn="Placeholder Usage"
+        labels={[
+          "Placeholder Label 1",
+          "Placeholder Label 2",
+          "Placeholder Label 3"
+        ]}
+        image1Src="path/to/placeholder-image.jpg"
+        image1Alt="Placeholder Infographic Image"
       ></Hero1>
       <CTA23
         heading1={
