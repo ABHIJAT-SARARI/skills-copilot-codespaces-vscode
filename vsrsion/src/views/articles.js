@@ -9,7 +9,7 @@ import Features22 from '../components/features22'
 import Footer3 from '../components/footer3'
 import './articles.css'
 
-const Articles = (props) => {
+const Articles = () => {
   return (
     <div className="articles-container1">
       <Helmet>
@@ -47,8 +47,8 @@ const Articles = (props) => {
               className="articles-nav2"
             >
               <div className="articles-container2">
-                <span className="articles-logo2">Character</span>
-                <div data-thq="thq-close-menu" className="articles-menu-close">
+              <img src={logo} alt="Logo" className="navbar-logo" />
+              <div data-thq="thq-close-menu" className="articles-menu-close">
                   <svg viewBox="0 0 1024 1024" className="articles-icon12">
                     <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
                   </svg>
@@ -60,14 +60,10 @@ const Articles = (props) => {
                 className="articles-nav3"
               >
                 <span className="articles-text10">About</span>
-                <span className="articles-text11">Features</span>
-                <span className="articles-text12">Pricing</span>
                 <span className="articles-text13">Team</span>
-                <span className="articles-text14">Blog</span>
               </nav>
               <div className="articles-container3">
-                <button className="articles-login button">Login</button>
-                <button className="button">Register</button>
+                <button className="articles-login button">Register/Login</button>
               </div>
             </div>
             <div className="articles-icon-group">

@@ -58,8 +58,8 @@ const ArticleDetails = (props) => {
               className="article-details-nav2"
             >
               <div className="article-details-container2">
-                <span className="article-details-logo2">Character</span>
-                <div
+              <img src={logo} alt="Logo" className="navbar-logo" />
+              <div
                   data-thq="thq-close-menu"
                   className="article-details-menu-close"
                 >
@@ -77,14 +77,11 @@ const ArticleDetails = (props) => {
                 className="article-details-nav3"
               >
                 <span className="article-details-text10">About</span>
-                <span className="article-details-text11">Features</span>
-                <span className="article-details-text12">Pricing</span>
-                <span className="article-details-text13">Team</span>
-                <span className="article-details-text14">Blog</span>
+                <span className="article-details-text11">Team</span>
+              
               </nav>
               <div className="article-details-container3">
-                <button className="article-details-login button">Login</button>
-                <button className="button">Register</button>
+                <button className="article-details-login button">Register/Login</button>
               </div>
             </div>
             <div className="article-details-icon-group">

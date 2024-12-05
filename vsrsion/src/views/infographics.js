@@ -57,8 +57,8 @@ const Infographics = (props) => {
               className="infographics-nav2"
             >
               <div className="infographics-container2">
-                <span className="infographics-logo2">Character</span>
-                <div
+              <img src={logo} alt="Logo" className="navbar-logo" />
+              <div
                   data-thq="thq-close-menu"
                   className="infographics-menu-close"
                 >
@@ -73,14 +73,11 @@ const Infographics = (props) => {
                 className="infographics-nav3"
               >
                 <span className="infographics-text10">About</span>
-                <span className="infographics-text11">Features</span>
-                <span className="infographics-text12">Pricing</span>
-                <span className="infographics-text13">Team</span>
-                <span className="infographics-text14">Blog</span>
+                <span className="infographics-text11">Team</span>
+              
               </nav>
               <div className="infographics-container3">
-                <button className="infographics-login button">Login</button>
-                <button className="button">Register</button>
+                <button className="infographics-login button">Register/Login</button>
               </div>
             </div>
             <div className="infographics-icon-group">

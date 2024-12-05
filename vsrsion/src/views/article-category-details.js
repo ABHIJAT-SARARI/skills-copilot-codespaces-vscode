@@ -65,9 +65,7 @@ const ArticleCategoryDetails = (props) => {
               className="article-category-details-nav2"
             >
               <div className="article-category-details-container2">
-                <span className="article-category-details-logo2">
-                  Character
-                </span>
+              <img src={logo} alt="Logo" className="navbar-logo" />
                 <div
                   data-thq="thq-close-menu"
                   className="article-category-details-menu-close"
@@ -86,18 +84,13 @@ const ArticleCategoryDetails = (props) => {
                 className="article-category-details-nav3"
               >
                 <span className="article-category-details-text10">About</span>
-                <span className="article-category-details-text11">
-                  Features
-                </span>
-                <span className="article-category-details-text12">Pricing</span>
                 <span className="article-category-details-text13">Team</span>
-                <span className="article-category-details-text14">Blog</span>
               </nav>
               <div className="article-category-details-container3">
                 <button className="article-category-details-login button">
-                  Login
+                Register/Login
                 </button>
-                <button className="button">Register</button>
+              
               </div>
             </div>
             <div className="article-category-details-icon-group">

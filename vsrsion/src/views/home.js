@@ -67,8 +67,8 @@ const Home = (props) => {
               className="home-nav2"
             >
               <div className="home-container2">
-                <span className="home-logo2">Character</span>
-                <div data-thq="thq-close-menu" className="home-menu-close">
+              <img src={logo} alt="Logo" className="navbar-logo" />
+              <div data-thq="thq-close-menu" className="home-menu-close">
                   <svg viewBox="0 0 1024 1024" className="home-icon12">
                     <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
                   </svg>
@@ -84,8 +84,7 @@ const Home = (props) => {
                 <span className="home-text12">About</span>
               </nav>
               <div className="home-container3">
-                <button className="home-login button">Login</button>
-                <button className="button">Register</button>
+                <button className="home-login button">Register/Login</button>
               </div>
             </div>
             <div className="home-icon-group">

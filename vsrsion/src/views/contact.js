@@ -47,8 +47,8 @@ const Contact = (props) => {
               className="contact-nav2"
             >
               <div className="contact-container2">
-                <span className="contact-logo2">Character</span>
-                <div data-thq="thq-close-menu" className="contact-menu-close">
+              <img src={logo} alt="Logo" className="navbar-logo" />
+              <div data-thq="thq-close-menu" className="contact-menu-close">
                   <svg viewBox="0 0 1024 1024" className="contact-icon12">
                     <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
                   </svg>
@@ -60,14 +60,10 @@ const Contact = (props) => {
                 className="contact-nav3"
               >
                 <span className="contact-text10">About</span>
-                <span className="contact-text11">Features</span>
-                <span className="contact-text12">Pricing</span>
                 <span className="contact-text13">Team</span>
-                <span className="contact-text14">Blog</span>
               </nav>
               <div className="contact-container3">
-                <button className="contact-login button">Login</button>
-                <button className="button">Register</button>
+                <button className="contact-login button">Register/Login</button>
               </div>
             </div>
             <div className="contact-icon-group">

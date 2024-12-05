@@ -49,7 +49,7 @@ const About = (props) => {
               className="about-nav2"
             >
               <div className="about-container2">
-                <span className="about-logo2">Character</span>
+              <img src={logo} alt="Logo" className="navbar-logo" />
                 <div data-thq="thq-close-menu" className="about-menu-close">
                   <svg viewBox="0 0 1024 1024" className="about-icon12">
                     <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
@@ -62,14 +62,10 @@ const About = (props) => {
                 className="about-nav3"
               >
                 <span className="about-text10">About</span>
-                <span className="about-text11">Features</span>
-                <span className="about-text12">Pricing</span>
                 <span className="about-text13">Team</span>
-                <span className="about-text14">Blog</span>
               </nav>
               <div className="about-container3">
-                <button className="about-login button">Login</button>
-                <button className="button">Register</button>
+                <button className="about-login button">Register/Login</button>
               </div>
             </div>
             <div className="about-icon-group">

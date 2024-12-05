@@ -61,8 +61,8 @@ const Infographicsdetails = (props) => {
               className="infographicsdetails-nav2"
             >
               <div className="infographicsdetails-container11">
-                <span className="infographicsdetails-logo2">Character</span>
-                <div
+              <img src={logo} alt="Logo" className="navbar-logo" />
+              <div
                   data-thq="thq-close-menu"
                   className="infographicsdetails-menu-close"
                 >
@@ -80,16 +80,14 @@ const Infographicsdetails = (props) => {
                 className="infographicsdetails-nav3"
               >
                 <span className="infographicsdetails-text10">About</span>
-                <span className="infographicsdetails-text11">Features</span>
-                <span className="infographicsdetails-text12">Pricing</span>
-                <span className="infographicsdetails-text13">Team</span>
-                <span className="infographicsdetails-text14">Blog</span>
+                <span className="infographicsdetails-text11">Team</span>
+                
               </nav>
               <div className="infographicsdetails-container12">
                 <button className="infographicsdetails-login button">
-                  Login
+                Register/Login
                 </button>
-                <button className="button">Register</button>
+
               </div>
             </div>
             <div className="infographicsdetails-icon-group">
@@ -146,7 +144,7 @@ const Infographicsdetails = (props) => {
         </div>
         <div className="infographicsdetails-buttons"></div>
         <img
-          src="https://play.teleporthq.io/static/svg/default-img.svg"
+          src="https://play.io/static/svg/default-img.svg"
           alt="image"
           className="infographicsdetails-image"
         />
