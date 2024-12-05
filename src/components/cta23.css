@@ -1,0 +1,117 @@
+.cta23-container1 {
+  width: 100%;
+  position: relative;
+}
+.cta23-max-width {
+  gap: 80px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  overflow: hidden;
+  max-width: var(--dl-size-size-maxwidth);
+  align-self: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.cta23-row1 {
+  width: 100%;
+  display: flex;
+  max-width: var(--dl-size-size-maxwidth);
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.cta23-content {
+  gap: var(--dl-space-space-oneandhalfunits);
+  width: 731px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.cta23-heading1 {
+  text-align: center;
+}
+.cta23-content1 {
+  text-align: center;
+}
+.cta23-container2 {
+  gap: var(--dl-space-space-unit);
+  flex: 1;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.cta23-row2 {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+.cta23-container3 {
+  gap: var(--dl-space-space-unit);
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-self: center;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.cta23-textinput {
+  width: 521px;
+  height: 50px;
+}
+.cta23-button {
+  color: #121212;
+  width: auto;
+  background-color: #ffcf77;
+}
+.cta23-image {
+  height: 500px;
+  align-self: stretch;
+  object-fit: cover;
+}
+.cta23-text2 {
+  color: #f9f9f9;
+  display: inline-block;
+}
+.cta23-text3 {
+  display: inline-block;
+}
+.cta23-text4 {
+  color: #f5f5f5;
+  display: inline-block;
+}
+@media(max-width: 991px) {
+  .cta23-container2 {
+    width: auto;
+    align-self: center;
+    align-items: flex-start;
+  }
+  .cta23-row2 {
+    width: 100%;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .cta23-container3 {
+    gap: var(--dl-space-space-unit);
+    align-self: flex-end;
+    justify-content: center;
+  }
+}
+@media(max-width: 767px) {
+  .cta23-container3 {
+    gap: var(--dl-space-space-unit);
+  }
+}
+@media(max-width: 479px) {
+  .cta23-row2 {
+    justify-content: center;
+  }
+  .cta23-container3 {
+    width: 100%;
+    flex-direction: column;
+  }
+}
