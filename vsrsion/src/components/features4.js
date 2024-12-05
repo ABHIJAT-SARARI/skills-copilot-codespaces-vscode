@@ -115,22 +115,47 @@ const Features4 = (props) => {
 }
 
 Features4.defaultProps = {
-  feature3Title: undefined,
-  feature2ImageAlt: 'Visually Impactful Infographics Image',
-  feature1ImageSrc:
-    'https://images.unsplash.com/photo-1724304013246-1abe63567e33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTczMzA0OTMzNXw&ixlib=rb-4.0.3&q=80&w=1080',
-  feature1ImageAlt: 'High-Quality Articles Image',
-  feature1Title: undefined,
-  sectionTitle: undefined,
-  feature2ImageSrc:
-    'https://images.unsplash.com/photo-1667372283545-1261fb5c427a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTczMzA0OTMzNnw&ixlib=rb-4.0.3&q=80&w=1080',
-  feature3ImageAlt: 'Expert Contributors Image',
-  feature2Description: undefined,
-  feature2Title: undefined,
-  feature1Description: undefined,
-  feature3Description: undefined,
-  feature3ImageSrc:
-    'https://images.unsplash.com/photo-1553831755-2a0a5370efe4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTczMzA0OTMzNnw&ixlib=rb-4.0.3&q=80&w=1080',
+  feature3Title: (
+    <Fragment>
+      <span className="features4-text2">Placeholder Title 3</span>
+    </Fragment>
+  ),
+  feature2ImageAlt: 'Placeholder Image 2',
+  feature1ImageSrc: 'https://via.placeholder.com/600x400',
+  feature1ImageAlt: 'Placeholder Image 1',
+  feature1Title: (
+    <Fragment>
+      <span className="features4-text3">Placeholder Title 1</span>
+    </Fragment>
+  ),
+  sectionTitle: (
+    <Fragment>
+      <span className="features4-text4">Featured Infographic (at the top)</span>
+    </Fragment>
+  ),
+  feature2ImageSrc: 'https://via.placeholder.com/600x400',
+  feature3ImageAlt: 'Placeholder Image 3',
+  feature2Description: (
+    <Fragment>
+      <span className="features4-text5">Placeholder Description 2</span>
+    </Fragment>
+  ),
+  feature2Title: (
+    <Fragment>
+      <span className="features4-text6">Placeholder Title 2</span>
+    </Fragment>
+  ),
+  feature1Description: (
+    <Fragment>
+      <span className="features4-text7">Placeholder Description 1</span>
+    </Fragment>
+  ),
+  feature3Description: (
+    <Fragment>
+      <span className="features4-text8">Placeholder Description 3</span>
+    </Fragment>
+  ),
+  feature3ImageSrc: 'https://via.placeholder.com/600x400',
 }
 
 Features4.propTypes = {

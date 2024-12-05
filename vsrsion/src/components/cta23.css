@@ -83,6 +83,19 @@
   color: #f5f5f5;
   display: inline-block;
 }
+.cta23-search-result {
+  text-align: center;
+}
+.cta23-search-result img {
+  max-width: 100%;
+  height: auto;
+}
+.cta23-search-result h3 {
+  margin-top: var(--dl-space-space-unit);
+}
+.cta23-search-result p {
+  margin-top: var(--dl-space-space-halfunit);
+}
 @media(max-width: 991px) {
   .cta23-container2 {
     width: auto;

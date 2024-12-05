@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Script from 'dangerous-html/react'
@@ -14,6 +14,26 @@ import logo from '../assets/without_bg.png'
 
 
 const Infographics = (props) => {
+  const [searchResult, setSearchResult] = useState(null);
+
+  const handleSearch = (keyword) => {
+    // Placeholder search logic
+    if (keyword === "example") {
+      setSearchResult({
+        title: "Example Infographic",
+        description: "This is an example infographic description.",
+        usedIn: "Example Usage",
+        imageSrc: "https://via.placeholder.com/800x600",
+      });
+    } else {
+      setSearchResult(null);
+    }
+  };
+
+  const handleCloseResult = () => {
+    setSearchResult(null);
+  };
+
   return (
     <div className="infographics-container1">
       <Helmet>
@@ -148,7 +168,6 @@ const Infographics = (props) => {
           "Placeholder Label 2",
           "Placeholder Label 3"
         ]}
-        image1Src="path/to/placeholder-image.jpg"
         image1Alt="Placeholder Infographic Image"
       ></Hero1>
       <CTA23
@@ -171,54 +190,45 @@ const Infographics = (props) => {
             </span>
           </Fragment>
         }
+        onSearch={handleSearch}
+        searchResult={searchResult}
+        onCloseResult={handleCloseResult}
       ></CTA23>
       <Features4
-        feature3Title={
-          <Fragment>
-            <span className="infographics-text29">Expert Contributors</span>
-          </Fragment>
-        }
+        feature1ImageSrc="https://via.placeholder.com/600x400"
+        feature1ImageAlt="Placeholder Image 1"
         feature1Title={
           <Fragment>
-            <span className="infographics-text30">High-Quality Articles</span>
-          </Fragment>
-        }
-        sectionTitle={
-          <Fragment>
-            <span className="infographics-text31">
-              Featured Infographic (at the top)
-            </span>
-          </Fragment>
-        }
-        feature2Description={
-          <Fragment>
-            <span className="infographics-text32">
-              Explore visually engaging infographics that simplify complex AI
-              concepts.
-            </span>
-          </Fragment>
-        }
-        feature2Title={
-          <Fragment>
-            <span className="infographics-text33">
-              Visually Impactful Infographics
-            </span>
+            <span className="infographics-text30">Placeholder Title 1</span>
           </Fragment>
         }
         feature1Description={
           <Fragment>
-            <span className="infographics-text34">
-              Access well-researched and informative articles on AI and data
-              science topics.
-            </span>
+            <span className="infographics-text34">Placeholder Description 1</span>
+          </Fragment>
+        }
+        feature2ImageSrc="https://via.placeholder.com/600x400"
+        feature2ImageAlt="Placeholder Image 2"
+        feature2Title={
+          <Fragment>
+            <span className="infographics-text33">Placeholder Title 2</span>
+          </Fragment>
+        }
+        feature2Description={
+          <Fragment>
+            <span className="infographics-text32">Placeholder Description 2</span>
+          </Fragment>
+        }
+        feature3ImageSrc="https://via.placeholder.com/600x400"
+        feature3ImageAlt="Placeholder Image 3"
+        feature3Title={
+          <Fragment>
+            <span className="infographics-text29">Placeholder Title 3</span>
           </Fragment>
         }
         feature3Description={
           <Fragment>
-            <span className="infographics-text35">
-              Learn from professionals, researchers, and enthusiasts who share
-              their expertise.
-            </span>
+            <span className="infographics-text35">Placeholder Description 3</span>
           </Fragment>
         }
       ></Features4>

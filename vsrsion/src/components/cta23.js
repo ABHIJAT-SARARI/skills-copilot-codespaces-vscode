@@ -1,10 +1,20 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import PropTypes from 'prop-types'
 
 import './cta23.css'
 
 const CTA23 = (props) => {
+  const [keyword, setKeyword] = useState("");
+
+  const handleInputChange = (event) => {
+    setKeyword(event.target.value);
+  };
+
+  const handleSearchClick = () => {
+    props.onSearch(keyword);
+  };
+
   return (
     <div className="cta23-container1 thq-section-padding">
       <div className="cta23-max-width thq-section-max-width">
@@ -26,27 +36,45 @@ const CTA23 = (props) => {
                 </Fragment>
               )}
             </p>
-            <div className="cta23-container2">
-              <div className="cta23-row2">
-                <div className="cta23-container3">
-                  <input
-                    type="text"
-                    placeholder="Keyword or title"
-                    required="true"
-                    className="cta23-textinput thq-input"
-                  />
-                </div>
+            {props.searchResult ? (
+              <div className="cta23-search-result">
+                <img
+                  alt={props.searchResult.title}
+                  src={props.searchResult.imageSrc}
+                  className="cta23-image thq-img-ratio-16-9"
+                />
+                <h3>{props.searchResult.title}</h3>
+                <p>{props.searchResult.description}</p>
+                <p><strong>Used In:</strong> {props.searchResult.usedIn}</p>
+                <button onClick={props.onCloseResult} className="cta23-button thq-button-filled">
+                  <span>Close</span>
+                </button>
               </div>
-              <button type="button" className="cta23-button thq-button-filled">
-                <span>
-                  {props.action1 ?? (
-                    <Fragment>
-                      <span className="cta23-text3">Search Infographics</span>
-                    </Fragment>
-                  )}
-                </span>
-              </button>
-            </div>
+            ) : (
+              <div className="cta23-container2">
+                <div className="cta23-row2">
+                  <div className="cta23-container3">
+                    <input
+                      type="text"
+                      placeholder="Keyword or title"
+                      value={keyword}
+                      onChange={handleInputChange}
+                      required="true"
+                      className="cta23-textinput thq-input"
+                    />
+                  </div>
+                </div>
+                <button onClick={handleSearchClick} className="cta23-button thq-button-filled">
+                  <span>
+                    {props.action1 ?? (
+                      <Fragment>
+                        <span className="cta23-text3">Search Infographics</span>
+                      </Fragment>
+                    )}
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <img
@@ -74,6 +102,9 @@ CTA23.propTypes = {
   image1Alt: PropTypes.string,
   action1: PropTypes.element,
   content1: PropTypes.element,
+  onSearch: PropTypes.func.isRequired,
+  searchResult: PropTypes.object,
+  onCloseResult: PropTypes.func.isRequired,
 }
 
 export default CTA23
