@@ -1,57 +1,42 @@
 import React, { Fragment } from 'react'
-
 import Script from 'dangerous-html/react'
 import PropTypes from 'prop-types'
-
 import './hero16.css'
 
 const Hero16 = (props) => {
+  // Placeholder data
+  const heading = "Featured Articles";
+  const description = "Highlighting the best insights and breakthroughs in AI and data science. Stay ahead with our expertly curated content designed to inspire and inform.";
+  const tags = ["Data Science", "ML", "Deep Learning"];
+  const featuredArticles = [
+    "Understanding the Basics of Machine Learning",
+    "The Future of Artificial Intelligence",
+    "Deep Learning: An Overview"
+  ];
+
   return (
     <div className="thq-section-padding">
       <div className="hero16-max-width thq-section-max-width">
         <div className="hero16-column thq-section-padding">
-          <h1 className="thq-heading-1 hero16-text10">
-            {props.heading1 ?? (
-              <Fragment>
-                <span className="hero16-text16">
-                  Empowering AI and Data Science Enthusiasts
-                </span>
-              </Fragment>
-            )}
+          <h1 className="thq-heading-1 hero16-text-white">
+            {heading}
           </h1>
           <span>
-            {props.text3 ?? (
-              <Fragment>
-                <span className="hero16-text17">
-                  Highlighting the best insights and breakthroughs in AI and
-                  data science. Stay ahead with our expertly curated content
-                  designed to inspire and inform.
-                </span>
-              </Fragment>
-            )}
+            <span className="hero16-text-white">
+              {description}
+            </span>
           </span>
           <div className="hero16-actions">
-            <label>
-              {props.text ?? (
-                <Fragment>
-                  <span className="hero16-text19">Data Science</span>
-                </Fragment>
-              )}
-            </label>
-            <label>
-              {props.text1 ?? (
-                <Fragment>
-                  <span className="hero16-text15">ML</span>
-                </Fragment>
-              )}
-            </label>
-            <label>
-              {props.text2 ?? (
-                <Fragment>
-                  <span className="hero16-text18">Deep Learning</span>
-                </Fragment>
-              )}
-            </label>
+            {tags.map((tag, index) => (
+              <label key={index}>
+                <span className={`hero16-text${15 + index}`}>{tag}</span>
+              </label>
+            ))}
+          </div>
+          <div className="hero16-featured-articles">
+            {featuredArticles.map((article, index) => (
+              <h2 key={index} className="hero16-text-white">{article}</h2>
+            ))}
           </div>
         </div>
         <div className="hero16-content">

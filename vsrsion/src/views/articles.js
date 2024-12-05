@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-
 import Script from 'dangerous-html/react'
 import { Helmet } from 'react-helmet'
 import logo from '../assets/without_bg.png'
@@ -18,7 +17,7 @@ const Articles = () => {
       </Helmet>
       <header className="home-header1">
         <header data-thq="thq-navbar" className="home-navbar">
-        <img src={logo} alt="Logo" className="navbar-logo" />
+          <img src={logo} alt="Logo" className="navbar-logo" />
           <div
             data-thq="thq-navbar-nav"
             data-role="Nav"
@@ -28,7 +27,20 @@ const Articles = () => {
               data-thq="thq-navbar-nav-links"
               data-role="Nav"
               className="articles-nav1"
-            ></nav>
+            >
+              <Link to="/" className="articles-navlink1 button-clean button">
+                Home
+              </Link>
+              <Link
+                to="/infographics"
+                className="articles-navlink2 button-clean button"
+              >
+                Infographics
+              </Link>
+              <Link to="/" className="articles-navlink3 button-clean button">
+                About
+              </Link>
+            </nav>
           </div>
           <div data-thq="thq-navbar-btn-group" className="articles-btn-group">
             <div className="articles-socials"></div>
@@ -47,8 +59,8 @@ const Articles = () => {
               className="articles-nav2"
             >
               <div className="articles-container2">
-              <img src={logo} alt="Logo" className="navbar-logo" />
-              <div data-thq="thq-close-menu" className="articles-menu-close">
+                <img src={logo} alt="Logo" className="navbar-logo" />
+                <div data-thq="thq-close-menu" className="articles-menu-close">
                   <svg viewBox="0 0 1024 1024" className="articles-icon12">
                     <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
                   </svg>
@@ -87,18 +99,6 @@ const Articles = () => {
               </svg>
             </div>
           </div>
-          <Link to="/" className="articles-navlink1 button-clean button">
-            Home
-          </Link>
-          <Link
-            to="/infographics"
-            className="articles-navlink2 button-clean button"
-          >
-            Infographics
-          </Link>
-          <Link to="/" className="articles-navlink3 button-clean button">
-            About
-          </Link>
         </header>
       </header>
       <section className="articles-hero">
@@ -113,132 +113,37 @@ const Articles = () => {
         <div className="articles-buttons"></div>
       </section>
       <Hero16
-        text={
-          <Fragment>
-            <span className="articles-text15">Data Science</span>
-          </Fragment>
-        }
-        text1={
-          <Fragment>
-            <span className="articles-text16">ML</span>
-          </Fragment>
-        }
-        text2={
-          <Fragment>
-            <span className="articles-text17">Deep Learning</span>
-          </Fragment>
-        }
-        text3={
-          <Fragment>
-            <span className="articles-text18">
-              Highlighting the best insights and breakthroughs in AI and data
-              science. Stay ahead with our expertly curated content designed to
-              inspire and inform.
-            </span>
-          </Fragment>
-        }
-        heading1={
-          <Fragment>
-            <span className="articles-text19">Featured Articles</span>
-          </Fragment>
-        }
-      ></Hero16>
+        text={<span className="articles-text15">Data Science</span>}
+        text1={<span className="articles-text16">ML</span>}
+        text2={<span className="articles-text17">Deep Learning</span>}
+        text3={<span className="articles-text18">
+          Highlighting the best insights and breakthroughs in AI and data
+          science. Stay ahead with our expertly curated content designed to
+          inspire and inform.
+        </span>}
+        heading1={<span className="articles-text19">Featured Articles</span>}
+      />
       <div>
         <div className="articles-container5">
-          <Script
-            html={`<script>
- /*
-  Accordion - Code Embed
-  */
-  const accordionContainers = document.querySelectorAll('[data-role="accordion-container"]'); // All accordion containers
-  const accordionContents = document.querySelectorAll('[data-role="accordion-content"]'); // All accordion content
-  const accordionIconsClosed = document.querySelectorAll('[data-role="accordion-icon-closed"]'); // All accordion closed icons
-  const accordionIconsOpen = document.querySelectorAll('[data-role="accordion-icon-open"]'); // All accordion open icons
-
-  accordionContents.forEach((accordionContent) => {
-      accordionContent.style.display = "none"; //Hides all accordion contents
-  });
-
-  accordionIconsClosed.forEach((icon) => {
-    icon.style.display = "flex"
-  })
-
-  accordionIconsOpen.forEach((icon) => {
-    icon.style.display = "none"
-  })
-
-  accordionContainers.forEach((accordionContainer, index) => {
-      accordionContainer.addEventListener("click", () => {
-          if (accordionContents[index].style.display === "flex") {
-              // If the accordion is already open, close it
-              accordionContents[index].style.display = "none";
-              accordionIconsClosed[index].style.display = "flex";
-              accordionIconsOpen[index].style.display = "none"
-          } else {
-              // If the accordion is closed, open it
-              accordionContents.forEach((accordionContent) => {
-                  accordionContent.style.display = "none"; //Hides all accordion contents
-              });
-
-              accordionIconsClosed.forEach((accordionIcon) => {
-                  accordionIcon.style.display = "flex"; // Resets all icon transforms to 0deg (default)
-              });
-
-              accordionIconsOpen.forEach((accordionIcon) => {
-                accordionIcon.style.display = "none";
-              })
-              
-              accordionContents[index].style.display = "flex"; // Shows accordion content
-              accordionIconsClosed[index].style.display = "none"; // Rotates accordion icon 180deg
-              accordionIconsOpen[index].style.display = "flex";
-          }
-      });
-  });
-</script>
-`}
-          ></Script>
+          <Script src="/path/to/accordion-script.js"></Script>
         </div>
       </div>
       <Features22
         heading1={
-          <Fragment>
+          <>
             <span className="articles-text20">Explore Your Topic</span>
-          </Fragment>
+          </>
         }
       ></Features22>
       <Footer3
-        link1={
-          <Fragment>
-            <span className="articles-text21">About Us</span>
-          </Fragment>
-        }
-        link2={
-          <Fragment>
-            <span className="articles-text22">Contact Us</span>
-          </Fragment>
-        }
-        link4={
-          <Fragment>
-            <span className="articles-text23">FAQs</span>
-          </Fragment>
-        }
-        termsLink={
-          <Fragment>
-            <span className="articles-text24">Terms of Service</span>
-          </Fragment>
-        }
-        cookiesLink={
-          <Fragment>
-            <span className="articles-text25">Cookies Policy</span>
-          </Fragment>
-        }
-        privacyLink={
-          <Fragment>
-            <span className="articles-text26">Privacy Policy</span>
-          </Fragment>
-        }
+        link1={<span className="articles-text21">About Us</span>}
+        link2={<span className="articles-text22">Contact Us</span>}
+        link4={<span className="articles-text23">FAQs</span>}
+        termsLink={<span className="articles-text24">Terms of Service</span>}
+        cookiesLink={<span className="articles-text25">Cookies Policy</span>}
+        privacyLink={<span className="articles-text26">Privacy Policy</span>}
         rootClassName="footer3root-class-name1"
-      ></Footer3>
+      />
     </div>
   )
 }

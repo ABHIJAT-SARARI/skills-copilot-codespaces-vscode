@@ -36,8 +36,10 @@
   animation-iteration-count: 1;
   animation-timing-function: ease;
 }
+/* Add this line to push the menu to the right */
 .articles-desktop-menu {
   display: flex;
+  margin-left: auto; /* Add this line to push the menu to the right */
 }
 .articles-nav1 {
   gap: var(--dl-space-space-twounits);

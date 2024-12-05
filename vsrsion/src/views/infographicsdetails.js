@@ -102,6 +102,13 @@ const Infographicsdetails = (props) => {
  /*
   Accordion - Code Embed
   */
+  const accordionContainers = document.querySelectorAll('[data-role="accordion-container"]'); // All accordion containers
+  const accordionContents = document.querySelectorAll('[data-role="accordion-content"]'); // All accordion content
+  const accordionIconsClosed = document.querySelectorAll('[data-role="accordion-icon-closed"]'); // All accordion closed icons
+  const accordionIconsOpen = document.querySelectorAll('[data-role="accordion-icon-open"]'); // All accordion open icons
+
+  accordionContents.forEach((accordionContent) => {
+      accordionContent.style.display = "none"; //Hides all accordion contents
   });
 
   accordionIconsClosed.forEach((icon) => {

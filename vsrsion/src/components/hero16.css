@@ -105,6 +105,18 @@
   color: #f53939;
   display: inline-block;
 }
+.hero16-text-white {
+  color: #ffffff;
+  display: inline-block;
+}
+.hero16-featured-articles {
+  margin-top: var(--dl-space-space-unit);
+}
+.hero16-featured-articles h2 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: var(--dl-space-space-unit);
+}
 @media(max-width: 991px) {
   .hero16-max-width {
     flex-direction: column;
