@@ -11,7 +11,6 @@ import CTA2 from '../components/cta2'
 import Footer3 from '../components/footer3'
 import './infographics.css'
 import logo from '../assets/without_bg.png'
-import accordionScript from '../scripts/accordionScript'
 
 
 const Infographics = (props) => {
@@ -291,7 +290,7 @@ const Infographics = (props) => {
       )}
       <div>
         <div className="infographics-container5">
-          <Script src={accordionScript}></Script>
+          <Script src="/path/to/accordionScript.js"></Script>
         </div>
       </div>
       <Footer3

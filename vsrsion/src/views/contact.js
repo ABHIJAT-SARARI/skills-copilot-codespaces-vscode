@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import Script from 'dangerous-html/react';
 import logo from '../assets/without_bg.png'
 import Contact2 from '../components/contact2'
 import ContactForm11 from '../components/contact-form11'
@@ -158,6 +159,11 @@ const Contact = (props) => {
           }
         ></ContactForm11>
       </header>
+      <div>
+        <div className="contact-container5">
+          <Script src="/path/to/accordionScript.js"></Script>
+        </div>
+      </div>
       <Footer3
         link1={
           <Fragment>

@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Script from 'dangerous-html/react';
 
 import { Helmet } from 'react-helmet'
 import logo from '../assets/without_bg.png'
@@ -193,6 +194,11 @@ const ArticleCategoryDetails = (props) => {
             {index + 1}
           </button>
         ))}
+      </div>
+      <div>
+        <div className="article-category-details-container5">
+          <Script src="/path/to/accordionScript.js"></Script>
+        </div>
       </div>
       <Footer3
         link1={

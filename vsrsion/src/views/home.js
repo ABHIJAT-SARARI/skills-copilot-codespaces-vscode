@@ -7,7 +7,6 @@ import logo from '../assets/without_bg.png'
 import Hero17 from '../components/hero17'
 import Steps2 from '../components/steps2'
 import Footer3 from '../components/footer3'
-import accordionScript from '../scripts/accordionScript'
 import './home.css'
 
 const Home = (props) => {
@@ -373,6 +372,7 @@ const Home = (props) => {
       ></Steps2>
       <div>
         <div className="home-container5">
+          <Script src="/path/to/accordionScript.js"></Script>
         </div>
       </div>
       <Footer3

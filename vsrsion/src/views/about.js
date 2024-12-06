@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import Script from 'dangerous-html/react';
 
 import { Helmet } from 'react-helmet'
 import logo from '../assets/without_bg.png'
@@ -298,6 +299,11 @@ const About = (props) => {
             </Fragment>
           }
         ></Team1>
+        <div>
+          <div className="about-container5">
+            <Script src="/path/to/accordionScript.js"></Script>
+          </div>
+        </div>
       </header>
       <Footer3
         link1={

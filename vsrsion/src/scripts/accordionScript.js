@@ -3,10 +3,10 @@
     window.accordionScriptLoaded = true;
 
     var initAccordion = function() {
-      var accordionContainers = document.querySelectorAll('[data-role="accordion-container"]');
-      var accordionContents = document.querySelectorAll('[data-role="accordion-content"]');
-      var accordionIconsClosed = document.querySelectorAll('[data-role="accordion-icon-closed"]');
-      var accordionIconsOpen = document.querySelectorAll('[data-role="accordion-icon-open"]');
+      const accordionContainers = document.querySelectorAll('[data-role="accordion-container"]');
+      const accordionContents = document.querySelectorAll('[data-role="accordion-content"]');
+      const accordionIconsClosed = document.querySelectorAll('[data-role="accordion-icon-closed"]');
+      const accordionIconsOpen = document.querySelectorAll('[data-role="accordion-icon-open"]');
 
       accordionContents.forEach((accordionContent) => {
           accordionContent.style.display = "none";
