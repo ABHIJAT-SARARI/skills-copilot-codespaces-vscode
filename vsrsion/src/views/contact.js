@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import Script from 'dangerous-html/react';
@@ -9,6 +9,9 @@ import Footer3 from '../components/footer3'
 import './contact.css'
 
 const Contact = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
+  const username = "John Doe"; // Placeholder for actual username
+
   return (
     <div className="contact-container1">
       <Helmet>
@@ -20,6 +23,14 @@ const Contact = (props) => {
           <img src={logo} alt="Logo" className="navbar-logo" />
           <div data-thq="thq-navbar-btn-group" className="contact-btn-group">
             <div className="contact-socials"></div>
+            {isLoggedIn ? (
+              <div className="profile">
+                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                <span>{username}</span>
+              </div>
+            ) : (
+              <button className="contact-login button">Register/Login</button>
+            )}
           </div>
           <div
             data-thq="thq-navbar-nav"
@@ -79,7 +90,14 @@ const Contact = (props) => {
                 </Link>
               </nav>
               <div className="contact-container3">
-                <button className="contact-login button">Register/Login</button>
+                {isLoggedIn ? (
+                  <div className="profile">
+                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <span>{username}</span>
+                  </div>
+                ) : (
+                  <button className="contact-login button">Register/Login</button>
+                )}
               </div>
             </div>
             <div className="contact-icon-group">

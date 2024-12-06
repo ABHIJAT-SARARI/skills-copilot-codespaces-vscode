@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Script from 'dangerous-html/react'
@@ -10,6 +10,9 @@ import Footer3 from '../components/footer3'
 import './home.css'
 
 const Home = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
+  const username = "John Doe"; // Placeholder for actual username
+
   return (
     <div className="home-container1">
       <Helmet>
@@ -51,7 +54,14 @@ const Home = (props) => {
           </div>
           <div data-thq="thq-navbar-btn-group" className="home-btn-group">
             <div className="home-socials"></div>
-            <button className="home-view1 button">Register/Login</button>
+            {isLoggedIn ? (
+              <div className="profile">
+                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                <span>{username}</span>
+              </div>
+            ) : (
+              <button className="home-view1 button">Register/Login</button>
+            )}
           </div>
           <div data-thq="thq-burger-menu" className="home-burger-menu">
             <button className="button home-button">
@@ -84,7 +94,14 @@ const Home = (props) => {
                 <span className="home-text12">About</span>
               </nav>
               <div className="home-container3">
-                <button className="home-login button">Register/Login</button>
+                {isLoggedIn ? (
+                  <div className="profile">
+                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <span>{username}</span>
+                  </div>
+                ) : (
+                  <button className="home-login button">Register/Login</button>
+                )}
               </div>
             </div>
             <div className="home-icon-group">

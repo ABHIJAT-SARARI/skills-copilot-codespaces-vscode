@@ -18,6 +18,7 @@ const Infographics = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPaymentDone, setIsPaymentDone] = useState(false);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
+  const username = "John Doe"; // Placeholder for actual username
 
   const handleSearch = (keyword) => {
     // Placeholder search logic
@@ -98,6 +99,14 @@ const Infographics = (props) => {
               className="infographics-btn-group"
             >
               <div className="infographics-socials"></div>
+              {isLoggedIn ? (
+                <div className="profile">
+                  <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                  <span>{username}</span>
+                </div>
+              ) : (
+                <button className="infographics-login button">Register/Login</button>
+              )}
             </div>
           </div>
           <div data-thq="thq-burger-menu" className="infographics-burger-menu">
@@ -140,7 +149,14 @@ const Infographics = (props) => {
                 </Link>
               </nav>
               <div className="infographics-container3">
-                <button className="infographics-login button">Register/Login</button>
+                {isLoggedIn ? (
+                  <div className="profile">
+                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <span>{username}</span>
+                  </div>
+                ) : (
+                  <button className="infographics-login button">Register/Login</button>
+                )}
               </div>
             </div>
             <div className="infographics-icon-group">

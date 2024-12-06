@@ -16,6 +16,8 @@ const ArticleCategoryDetails = (props) => {
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
+  const username = "John Doe"; // Placeholder for actual username
 
   useEffect(() => {
     // Placeholder for fetching featured article and articles based on category
@@ -75,6 +77,14 @@ const ArticleCategoryDetails = (props) => {
             className="article-category-details-btn-group"
           >
             <div className="article-category-details-socials"></div>
+            {isLoggedIn ? (
+              <div className="profile">
+                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                <span>{username}</span>
+              </div>
+            ) : (
+              <button className="article-category-details-login button">Register/Login</button>
+            )}
           </div>
           <div
             data-thq="thq-burger-menu"
@@ -121,10 +131,14 @@ const ArticleCategoryDetails = (props) => {
                 <span className="article-category-details-text13">Team</span>
               </nav>
               <div className="article-category-details-container3">
-                <button className="article-category-details-login button">
-                Register/Login
-                </button>
-              
+                {isLoggedIn ? (
+                  <div className="profile">
+                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <span>{username}</span>
+                  </div>
+                ) : (
+                  <button className="article-category-details-login button">Register/Login</button>
+                )}
               </div>
             </div>
             <div className="article-category-details-icon-group">

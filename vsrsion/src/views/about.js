@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Script from 'dangerous-html/react';
 
@@ -13,6 +13,9 @@ import Footer3 from '../components/footer3'
 import './about.css'
 
 const About = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
+  const username = "John Doe"; // Placeholder for actual username
+
   return (
     <div className="about-container1">
      <Helmet>
@@ -35,6 +38,14 @@ const About = (props) => {
           </div>
           <div data-thq="thq-navbar-btn-group" className="about-btn-group">
             <div className="about-socials"></div>
+            {isLoggedIn ? (
+              <div className="profile">
+                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                <span>{username}</span>
+              </div>
+            ) : (
+              <button className="about-login button">Register/Login</button>
+            )}
           </div>
           <div data-thq="thq-burger-menu" className="about-burger-menu">
             <button className="button about-button">
@@ -66,7 +77,14 @@ const About = (props) => {
                 <span className="about-text13">Team</span>
               </nav>
               <div className="about-container3">
-                <button className="about-login button">Register/Login</button>
+                {isLoggedIn ? (
+                  <div className="profile">
+                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <span>{username}</span>
+                  </div>
+                ) : (
+                  <button className="about-login button">Register/Login</button>
+                )}
               </div>
             </div>
             <div className="about-icon-group">

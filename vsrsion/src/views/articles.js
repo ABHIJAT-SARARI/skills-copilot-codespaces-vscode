@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Script from 'dangerous-html/react'
 import { Helmet } from 'react-helmet'
@@ -9,6 +9,9 @@ import Footer3 from '../components/footer3'
 import './articles.css'
 
 const Articles = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
+  const username = "John Doe"; // Placeholder for actual username
+
   return (
     <div className="articles-container1">
       <Helmet>
@@ -44,6 +47,14 @@ const Articles = () => {
           </div>
           <div data-thq="thq-navbar-btn-group" className="articles-btn-group">
             <div className="articles-socials"></div>
+            {isLoggedIn ? (
+              <div className="profile">
+                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                <span>{username}</span>
+              </div>
+            ) : (
+              <button className="articles-login button">Register/Login</button>
+            )}
           </div>
           <div data-thq="thq-burger-menu" className="articles-burger-menu">
             <button className="button articles-button">
@@ -75,7 +86,14 @@ const Articles = () => {
                 <span className="articles-text13">Team</span>
               </nav>
               <div className="articles-container3">
-                <button className="articles-login button">Register/Login</button>
+                {isLoggedIn ? (
+                  <div className="profile">
+                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <span>{username}</span>
+                  </div>
+                ) : (
+                  <button className="articles-login button">Register/Login</button>
+                )}
               </div>
             </div>
             <div className="articles-icon-group">

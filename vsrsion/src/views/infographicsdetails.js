@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Script from 'dangerous-html/react'
 import { Helmet } from 'react-helmet'
@@ -8,6 +8,9 @@ import accordionScript from '../scripts/accordionScript'
 import './infographicsdetails.css'
 
 const Infographicsdetails = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
+  const username = "John Doe"; // Placeholder for actual username
+
   // Placeholder data
   const infographic = {
     title: "The AI Evolution: Key Milestones Through the Decades",
@@ -31,6 +34,14 @@ const Infographicsdetails = (props) => {
           </div>
           <div data-thq="thq-navbar-btn-group" className="infographicsdetails-btn-group">
             <div className="infographicsdetails-socials"></div>
+            {isLoggedIn ? (
+              <div className="profile">
+                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                <span>{username}</span>
+              </div>
+            ) : (
+              <button className="infographicsdetails-login button">Register/Login</button>
+            )}
           </div>
           <div data-thq="thq-burger-menu" className="infographicsdetails-burger-menu">
             <button className="button infographicsdetails-button">
@@ -54,7 +65,14 @@ const Infographicsdetails = (props) => {
                 <span className="infographicsdetails-text11">Team</span>
               </nav>
               <div className="infographicsdetails-container12">
-                <button className="infographicsdetails-login button">Register/Login</button>
+                {isLoggedIn ? (
+                  <div className="profile">
+                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <span>{username}</span>
+                  </div>
+                ) : (
+                  <button className="infographicsdetails-login button">Register/Login</button>
+                )}
               </div>
             </div>
             <div className="infographicsdetails-icon-group">

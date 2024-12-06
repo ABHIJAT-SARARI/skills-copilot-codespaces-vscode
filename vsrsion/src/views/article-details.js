@@ -19,7 +19,8 @@ const ArticleDetails = (props) => {
   const [newComment, setNewComment] = useState('')
   const [likes, setLikes] = useState(0)
   const [isLiked, setIsLiked] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
+  const username = "John Doe"; // Placeholder for actual username
   const [showComments, setShowComments] = useState(false)
 
   useEffect(() => {
@@ -134,6 +135,14 @@ const ArticleDetails = (props) => {
             className="article-details-btn-group"
           >
             <div className="article-details-socials"></div>
+            {isLoggedIn ? (
+              <div className="profile">
+                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                <span>{username}</span>
+              </div>
+            ) : (
+              <button className="article-details-login button">Register/Login</button>
+            )}
           </div>
           <div
             data-thq="thq-burger-menu"
@@ -177,9 +186,14 @@ const ArticleDetails = (props) => {
                 <span className="article-details-text11">Team</span>
               </nav>
               <div className="article-details-container3">
-                <button className="article-details-login button">
-                  Register/Login
-                </button>
+                {isLoggedIn ? (
+                  <div className="profile">
+                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <span>{username}</span>
+                  </div>
+                ) : (
+                  <button className="article-details-login button">Register/Login</button>
+                )}
               </div>
             </div>
             <div className="article-details-icon-group">
