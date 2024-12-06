@@ -38,6 +38,9 @@
 }
 .contact-desktop-menu {
   display: flex;
+  justify-content: flex-end; /* Align to the right */
+  width: 100%;
+  margin-left: auto; /* Move to the right */
 }
 .contact-nav1 {
   gap: var(--dl-space-space-twounits);
@@ -53,6 +56,7 @@
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  margin-left: auto; /* Move to the right */
 }
 .contact-socials {
   gap: var(--dl-space-space-unit);
@@ -190,6 +194,9 @@
   animation-direction: normal;
   animation-iteration-count: 1;
   animation-timing-function: ease;
+}
+.contact-mobile-link {
+  color: #000; /* Change mobile-only navigation text color to black */
 }
 .contact-text15 {
   display: inline-block;
