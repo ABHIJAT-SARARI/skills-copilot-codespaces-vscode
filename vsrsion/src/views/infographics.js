@@ -15,6 +15,9 @@ import logo from '../assets/without_bg.png'
 
 const Infographics = (props) => {
   const [searchResult, setSearchResult] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isPaymentDone, setIsPaymentDone] = useState(false);
+  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
 
   const handleSearch = (keyword) => {
     // Placeholder search logic
@@ -32,6 +35,28 @@ const Infographics = (props) => {
 
   const handleCloseResult = () => {
     setSearchResult(null);
+  };
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handlePayment = () => {
+    setIsPaymentDone(true);
+    setShowPaymentPopup(false);
+    alert("Payment successful! Your request has been submitted.");
+  };
+
+  const handleRequestSubmit = () => {
+    if (isLoggedIn) {
+      if (!isPaymentDone) {
+        setShowPaymentPopup(true);
+      } else {
+        alert("Request submitted successfully! A copy has been sent to your email.");
+      }
+    } else {
+      alert("Please log in to submit your request.");
+    }
   };
 
   return (
@@ -250,7 +275,19 @@ const Infographics = (props) => {
             </span>
           </Fragment>
         }
+        onLogin={handleLogin}
+        onPayment={handlePayment}
+        onRequestSubmit={handleRequestSubmit}
+        isLoggedIn={isLoggedIn}
+        isPaymentDone={isPaymentDone}
       ></CTA2>
+      {showPaymentPopup && (
+        <div className="payment-popup">
+          <h2>Complete Payment</h2>
+          <p>Scan the QR code or enter your card details to complete the payment.</p>
+          <button onClick={handlePayment}>Complete Payment</button>
+        </div>
+      )}
       <div>
         <div className="infographics-container5">
           <Script

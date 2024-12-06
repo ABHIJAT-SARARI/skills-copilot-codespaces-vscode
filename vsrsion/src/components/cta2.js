@@ -23,42 +23,33 @@ const CTA2 = (props) => {
           </Fragment>
         )}
       </span>
-      <input
-        type="text"
-        placeholder="Enter Title"
-        required="true"
-        className="cta2-textinput1 thq-input"
-      />
-      <input
-        type="text"
-        placeholder="Enter At least 5 Tags related to your Title and description."
-        required="true"
-        className="cta2-textinput2 thq-input"
-      />
-      <input
-        type="text"
-        placeholder="Enter brief description"
-        required="true"
-        className="cta2-textinput3 thq-input"
-      />
-      <div className="cta2-max-width thq-section-max-width">
-        <div className="cta2-content">
-          <div className="cta2-container2">
-            <div className="cta2-row thq-flex-column">
-              <div className="cta2-container3"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button type="button" className="cta2-button thq-button-filled">
-        <span>
-          {props.action1 ?? (
-            <Fragment>
-              <span className="cta2-text3">Submit Request</span>
-            </Fragment>
-          )}
-        </span>
-      </button>
+      {props.isLoggedIn ? (
+        <Fragment>
+          <input
+            type="text"
+            placeholder="Enter Title"
+            required="true"
+            className="cta2-textinput1 thq-input"
+          />
+          <input
+            type="text"
+            placeholder="Enter At least 5 Tags related to your Title and description."
+            required="true"
+            className="cta2-textinput2 thq-input"
+          />
+          <input
+            type="text"
+            placeholder="Enter brief description"
+            required="true"
+            className="cta2-textinput3 thq-input"
+          />
+          <button type="button" className="cta2-button thq-button-filled" onClick={props.onRequestSubmit}>
+            <span>Submit Request</span>
+          </button>
+        </Fragment>
+      ) : (
+        <p>Please log in to submit a request.</p>
+      )}
     </div>
   )
 }
@@ -67,12 +58,22 @@ CTA2.defaultProps = {
   action1: undefined,
   heading1: undefined,
   text: undefined,
+  onLogin: () => {},
+  onPayment: () => {},
+  onRequestSubmit: () => {},
+  isLoggedIn: false,
+  isPaymentDone: false,
 }
 
 CTA2.propTypes = {
   action1: PropTypes.element,
   heading1: PropTypes.element,
   text: PropTypes.element,
+  onLogin: PropTypes.func,
+  onPayment: PropTypes.func,
+  onRequestSubmit: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
+  isPaymentDone: PropTypes.bool,
 }
 
 export default CTA2

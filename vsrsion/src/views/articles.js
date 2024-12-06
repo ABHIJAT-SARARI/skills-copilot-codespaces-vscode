@@ -134,6 +134,16 @@ const Articles = () => {
             <span className="articles-text20">Explore Your Topic</span>
           </>
         }
+        // Add hidden elements for category detection
+        ai={<span style={{ display: 'none' }}>AI</span>}
+        ml={<span style={{ display: 'none' }}>ML</span>}
+        python={<span style={{ display: 'none' }}>Python</span>}
+        dataScience={<span style={{ display: 'none' }}>Data Science</span>}
+        cybernetics={<span style={{ display: 'none' }}>Cybernetics</span>}
+        rProgramming={<span style={{ display: 'none' }}>R Programming</span>}
+        deepLearning={<span style={{ display: 'none' }}>Deep Learning</span>}
+        quantumComputing={<span style={{ display: 'none' }}>Quantum Computing</span>}
+        cloud={<span style={{ display: 'none' }}>Cloud</span>}
       ></Features22>
       <Footer3
         link1={<span className="articles-text21">About Us</span>}

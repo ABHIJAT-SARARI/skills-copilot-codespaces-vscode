@@ -1,26 +1,123 @@
-import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
-
+import React, { Fragment, useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import Script from 'dangerous-html/react'
 import { Helmet } from 'react-helmet'
 import logo from '../assets/without_bg.png'
-
+import sampleImage from '../assets/fg.jpg'
 import Footer3 from '../components/footer3'
 import './article-details.css'
+import 'katex/dist/katex.min.css'
+import { BlockMath, InlineMath } from 'react-katex'
 
 const ArticleDetails = (props) => {
+  const { articleId } = useParams()
+  const [article, setArticle] = useState({
+    title: 'Loading...',
+    content: 'Loading...',
+  })
+  const [comments, setComments] = useState([])
+  const [newComment, setNewComment] = useState('')
+  const [likes, setLikes] = useState(0)
+  const [isLiked, setIsLiked] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [showComments, setShowComments] = useState(false)
+
+  useEffect(() => {
+    // Placeholder for fetching article data
+    setArticle({
+      title: 'How Neural Networks Work: A Beginner’s Guide',
+      content: (
+        <Fragment>
+          <h2>Introduction</h2>
+          <p>Neural networks, a cornerstone of artificial intelligence, are revolutionizing industries by solving complex problems like image recognition, natural language processing, and autonomous driving. But what exactly are neural networks, and how do they work? Let’s break it down.</p>
+          <img src={sampleImage} alt="Sample" />
+          <h2>What is a Neural Network?</h2>
+          <p>A neural network is a type of machine learning model inspired by the structure of the human brain. It consists of layers of interconnected nodes, or "neurons," designed to process and recognize patterns in data.</p>
+          <ul>
+            <li>Input Layer: Receives raw data (e.g., an image’s pixel values).</li>
+            <li>Hidden Layers: Perform computations, extracting features from the data.</li>
+            <li>Output Layer: Produces the final result, such as a classification or prediction.</li>
+          </ul>
+          <h2>How Does a Neural Network Learn?</h2>
+          <p>Neural networks learn through a process called <strong>training</strong>, which involves feeding the model with labeled data and adjusting its internal parameters (weights and biases) to minimize errors. This process is achieved using algorithms like <strong>backpropagation</strong> and optimization techniques such as <strong>gradient descent</strong>.</p>
+          <p>For example, the equation <InlineMath math="y = mx + b" /> represents a simple linear relationship.</p>
+          <p>Einstein's famous equation <InlineMath math="E = mc^2" /> shows the relationship between energy and mass.</p>
+          <p>The derivative of the exponential function is given by <InlineMath math="\\frac{d}{dx}e^x = e^x" />.</p>
+          <pre><code class="language-js">const neuralNetwork = new NeuralNetwork();</code><button class="copy-button">Copy</button></pre>
+          <h2>Key Applications of Neural Networks</h2>
+          <p>1. <strong>Image Recognition</strong>: Identifying objects in photos or videos (e.g., facial recognition).</p>
+          <p>2. <strong>Speech Processing</strong>: Converting spoken language into text or generating human-like speech.</p>
+          <p>3. <strong>Healthcare</strong>: Diagnosing diseases through medical imaging analysis.</p>
+          <h2>Why Are Neural Networks Important?</h2>
+          <p>Neural networks are powerful because of their ability to generalize from data and uncover complex patterns that traditional algorithms might miss. This makes them invaluable in fields requiring data-driven decision-making and automation.</p>
+          <h2>Conclusion</h2>
+          <p>Neural networks are shaping the future of AI by enabling machines to learn and make intelligent decisions. Whether you&apos;re a beginner or an experienced data scientist, understanding the basics of how these systems work is essential to leveraging their potential.</p>
+          <p>Ready to dive deeper into neural networks? Explore our related articles for more insights.</p>
+        </Fragment>
+      ),
+    })
+  }, [articleId])
+
+  useEffect(() => {
+    const copyButtons = document.querySelectorAll('.copy-button')
+    copyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const codeBlock = button.previousElementSibling
+        navigator.clipboard.writeText(codeBlock.textContent)
+        button.textContent = 'Copied!'
+        setTimeout(() => {
+          button.textContent = 'Copy'
+        }, 2000)
+      })
+    })
+  }, [article.content])
+
+  const handleLike = () => {
+    if (isLoggedIn) {
+      setIsLiked(!isLiked)
+      setLikes(isLiked ? likes - 1 : likes + 1)
+    } else {
+      alert('Please log in to like the article.')
+    }
+  }
+
+  const handleComment = () => {
+    if (isLoggedIn) {
+      setShowComments(!showComments)
+    } else {
+      alert('Please log in to comment on the article.')
+    }
+  }
+
+  const handleAddComment = () => {
+    if (newComment.trim()) {
+      setComments([...comments, newComment])
+      setNewComment('')
+    }
+  }
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: article.title,
+        url: window.location.href,
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      }).catch(console.error);
+    } else {
+      alert('Share feature is not supported in your browser.');
+    }
+  }
+
   return (
     <div className="article-details-container1">
       <Helmet>
-        <title>Article-Details - AI Research Hubs</title>
-        <meta
-          property="og:title"
-          content="Article-Details - AI Research Hubs"
-        />
+        <title>{article.title} - AI Research Hubs</title>
+        <meta property="og:title" content={`${article.title} - AI Research Hubs`} />
       </Helmet>
       <header className="article-details-header1">
-      <header data-thq="thq-navbar" className="home-navbar">
-      <img src={logo} alt="Logo" className="navbar-logo" />
+        <header data-thq="thq-navbar" className="home-navbar">
+          <img src={logo} alt="Logo" className="navbar-logo" />
           <div
             data-thq="thq-navbar-nav"
             data-role="Nav"
@@ -58,8 +155,8 @@ const ArticleDetails = (props) => {
               className="article-details-nav2"
             >
               <div className="article-details-container2">
-              <img src={logo} alt="Logo" className="navbar-logo" />
-              <div
+                <img src={logo} alt="Logo" className="navbar-logo" />
+                <div
                   data-thq="thq-close-menu"
                   className="article-details-menu-close"
                 >
@@ -78,10 +175,11 @@ const ArticleDetails = (props) => {
               >
                 <span className="article-details-text10">About</span>
                 <span className="article-details-text11">Team</span>
-              
               </nav>
               <div className="article-details-container3">
-                <button className="article-details-login button">Register/Login</button>
+                <button className="article-details-login button">
+                  Register/Login
+                </button>
               </div>
             </div>
             <div className="article-details-icon-group">
@@ -124,351 +222,143 @@ const ArticleDetails = (props) => {
       </header>
       <section className="article-details-hero">
         <div className="article-details-heading">
-          <h1 className="article-details-header2">
-            How Neural Networks Work: A Beginner’s Guide
-          </h1>
+          <h1 className="article-details-header2">{article.title}</h1>
         </div>
-        <span id="article1" className="article-details-text15">
-          <span>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <span className="article-details-text17">Introduction</span>
-          <br className="article-details-text18"></br>
-          <br className="article-details-text19"></br>
-          <span>
-            Neural networks, a cornerstone of artificial intelligence, are
-            revolutionizing industries by solving complex problems like image
-            recognition, natural language processing, and autonomous driving.
-            But what exactly are neural networks, and how do they work? Let’s
-            break it down.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <span className="article-details-text25">
-            What is a Neural Network?
-          </span>
-          <br></br>
-          <br></br>
-          <span>
-            A neural network is a type of machine learning model inspired by the
-            structure of the human brain. It consists of layers of
-            interconnected nodes, or &quot;neurons,&quot; designed to process
-            and recognize patterns in data.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <br></br>
-          <span>
-            - Input Layer: Receives raw data (e.g., an image’s pixel values).
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <span>
-            - Hidden Layers: Perform computations, extracting features from the
-            data.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <span>
-            - Output Layer: Produces the final result, such as a classification
-            or prediction.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <span className="article-details-text40">
-            How Does a Neural Network Learn?
-          </span>
-          <br className="article-details-text41"></br>
-          <br></br>
-          <span>
-            Neural networks learn through a process called **training**, which
-            involves feeding the model with labeled data and adjusting its
-            internal parameters (weights and biases) to minimize errors. This
-            process is achieved using algorithms like **backpropagation** and
-            optimization techniques such as **gradient descent**.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <br></br>
-          <span>
-            -Forward Pass: Data flows through the network, and predictions are
-            made.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <span>
-            - Error Calculation: The difference between the prediction and the
-            actual value is measured using a loss function.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <span>
-            - Backward Pass: The network adjusts its parameters to reduce the
-            error for future predictions.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <span className="article-details-text55">
-            Key Applications of Neural Networks
-          </span>
-          <br className="article-details-text56"></br>
-          <br></br>
-          <span>
-            1. **Image Recognition**: Identifying objects in photos or videos
-            (e.g., facial recognition).
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <span>
-            2. **Speech Processing**: Converting spoken language into text or
-            generating human-like speech.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <span>
-            3. **Healthcare**: Diagnosing diseases through medical imaging
-            analysis.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <br></br>
-          <span>---</span>
-          <br></br>
-          <br></br>
-          <span className="article-details-text68">
-            Why Are Neural Networks Important?
-          </span>
-          <br className="article-details-text69"></br>
-          <br></br>
-          <span>
-            Neural networks are powerful because of their ability to generalize
-            from data and uncover complex patterns that traditional algorithms
-            might miss. This makes them invaluable in fields requiring
-            data-driven decision-making and automation.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <br></br>
-          <span>---</span>
-          <br></br>
-          <br></br>
-          <span className="article-details-text77">Conclusion</span>
-          <br className="article-details-text78"></br>
-          <br></br>
-          <br></br>
-          <span>
-            Neural networks are shaping the future of AI by enabling machines to
-            learn and make intelligent decisions. Whether you&apos;re a beginner
-            or an experienced data scientist, understanding the basics of how
-            these systems work is essential to leveraging their potential.
-            <span
-              dangerouslySetInnerHTML={{
-                __html: ' ',
-              }}
-            />
-          </span>
-          <br></br>
-          <br></br>
-          <span>
-            Ready to dive deeper into neural networks? Explore our related
-            articles for more insights.
-          </span>
-          <br></br>
-          <br></br>
-        </span>
-        <div className="article-details-container4">
-          <div className="article-details-container5">
-            <div className="article-details-container6">
+        <div id="article1" className="article-details-content">
+          {article.content}
+        </div>
+        <div className="article-details-meta">
+          <div className="article-details-author">
+            <svg
+              height="24"
+              width="24"
+              viewBox="0 0 24 24"
+              className="article-details-icon28"
+            >
+              <g fill="currentColor">
+                <path d="M16 10a4 4 0 1 1-8 0a4 4 0 0 1 8 0"></path>
+                <path
+                  fill-rule="evenodd"
+                  d="M11.592 21.992C6.258 21.778 2 17.386 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10h-.137q-.136 0-.271-.008M5.583 18.31a1.514 1.514 0 0 1 1.261-2.003c3.898-.431 6.432-.392 10.32.009a1.495 1.495 0 0 1 1.249 2.002A8.97 8.97 0 0 0 21 12c0-4.971-4.029-9-9-9S3 7.029 3 12c0 2.458.986 4.687 2.583 6.31"
+                  clip-rule="evenodd"
+                ></path>
+              </g>
+            </svg>
+            <div className="article-details-author-info">
+              <span>Published By: Author Name</span>
+              <span>Date: 01 Jan 2023</span>
+            </div>
+          </div>
+          <div className="article-details-actions">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              className="article-details-icon20"
+              onClick={handleComment}
+            >
+              <path
+                d="M20.61 19.19a7 7 0 0 0-2.74-10.57a8 8 0 1 0-14.19 6.29l-1.39 1.38a1 1 0 0 0-.21 1.09A1 1 0 0 0 3 18h5.69A7 7 0 0 0 15 22h6a1 1 0 0 0 .92-.62a1 1 0 0 0-.21-1.09ZM8 15a6.6 6.6 0 0 0 .08 1H5.41l.35-.34a1 1 0 0 0 0-1.42A5.93 5.93 0 0 1 4 10a6 6 0 0 1 6-6a5.94 5.94 0 0 1 5.65 4H15a7 7 0 0 0-7 7m10.54 5l.05.05H15a5 5 0 1 1 3.54-1.46a1 1 0 0 0-.3.7a1 1 0 0 0 .3.71"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <div className="like-container">
               <svg
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-                className="article-details-icon20"
+                className={`article-details-icon22 ${isLiked ? 'liked' : ''}`}
+                onClick={handleLike}
               >
                 <path
-                  d="M20.61 19.19a7 7 0 0 0-2.74-10.57a8 8 0 1 0-14.19 6.29l-1.39 1.38a1 1 0 0 0-.21 1.09A1 1 0 0 0 3 18h5.69A7 7 0 0 0 15 22h6a1 1 0 0 0 .92-.62a1 1 0 0 0-.21-1.09ZM8 15a6.6 6.6 0 0 0 .08 1H5.41l.35-.34a1 1 0 0 0 0-1.42A5.93 5.93 0 0 1 4 10a6 6 0 0 1 6-6a5.94 5.94 0 0 1 5.65 4H15a7 7 0 0 0-7 7m10.54 5l.05.05H15a5 5 0 1 1 3.54-1.46a1 1 0 0 0-.3.7a1 1 0 0 0 .3.71"
-                  fill="currentColor"
-                ></path>
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  fill={isLiked ? 'blue' : 'white'}
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
               </svg>
+              <span>{likes}</span>
             </div>
             <svg
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              className="article-details-icon22"
-            >
-              <g fill="none" stroke="currentColor" stroke-width="1.5">
-                <path
-                  d="M18 22a3 3 0 1 0 0-6a3 3 0 0 0 0 6m0-14a3 3 0 1 0 0-6a3 3 0 0 0 0 6M6 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
-                  fill="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path d="m15.5 6.5l-7 4m0 3l7 4"></path>
-              </g>
-            </svg>
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 48 48"
-              className="article-details-icon26"
+              className="article-details-icon24"
+              onClick={handleShare}
             >
               <path
-                d="M15 8C8.92487 8 4 12.9249 4 19C4 30 17 40 24 42.3262C31 40 44 30 44 19C44 12.9249 39.0751 8 33 8C29.2797 8 25.9907 9.8469 24 12.6738C22.0093 9.8469 18.7203 8 15 8Z"
-                fill="#2F88FF"
-                stroke="#000"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
+                d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.53.5 1.21.81 1.96.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.51 9.31 6.83 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.83 0 1.51-.31 2.04-.81l7.13 4.16c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3z"
+                fill="currentColor"
+              />
             </svg>
-          </div>
-          <div className="article-details-container7">
-            <svg
-              height="48"
-              width="48"
-              viewBox="0 0 48 48"
-              className="article-details-icon28"
-            >
-              <g fill="currentColor">
-                <path d="M32 20a8 8 0 1 1-16 0a8 8 0 0 1 16 0"></path>
-                <path
-                  fill-rule="evenodd"
-                  d="M23.184 43.984C12.517 43.556 4 34.772 4 24C4 12.954 12.954 4 24 4s20 8.954 20 20s-8.954 20-20 20h-.274q-.272 0-.542-.016M11.166 36.62a3.028 3.028 0 0 1 2.523-4.005c7.796-.863 12.874-.785 20.632.018a2.99 2.99 0 0 1 2.498 4.002A17.94 17.94 0 0 0 42 24c0-9.941-8.059-18-18-18S6 14.059 6 24c0 4.916 1.971 9.373 5.166 12.621"
-                  clip-rule="evenodd"
-                ></path>
-              </g>
-            </svg>
-            <ul className="article-details-ul list">
-              <li className="article-details-li1 list-item">
-                <span>Published By: </span>
-              </li>
-              <li className="list-item">
-                <span className="article-details-text88">Date: </span>
-              </li>
-              <li className="list-item"></li>
-            </ul>
           </div>
         </div>
+        {showComments && (
+          <div className="comments-section">
+            <h3>Comments</h3>
+            <div className="comments-list">
+              {comments.map((comment, index) => (
+                <p key={index}>{comment}</p>
+              ))}
+            </div>
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Add a comment..."
+            ></textarea>
+            <button onClick={handleAddComment}>Add Comment</button>
+          </div>
+        )}
       </section>
       <div>
         <div className="article-details-container9">
           <Script
             html={`<script>
- /*
-  Accordion - Code Embed
-  */
-  const accordionContainers = document.querySelectorAll('[data-role="accordion-container"]'); // All accordion containers
-  const accordionContents = document.querySelectorAll('[data-role="accordion-content"]'); // All accordion content
-  const accordionIconsClosed = document.querySelectorAll('[data-role="accordion-icon-closed"]'); // All accordion closed icons
-  const accordionIconsOpen = document.querySelectorAll('[data-role="accordion-icon-open"]'); // All accordion open icons
+              const accordionContainers = document.querySelectorAll('[data-role="accordion-container"]'); // All accordion containers
+              const accordionContents = document.querySelectorAll('[data-role="accordion-content"]'); // All accordion content
+              const accordionIconsClosed = document.querySelectorAll('[data-role="accordion-icon-closed"]'); // All accordion closed icons
+              const accordionIconsOpen = document.querySelectorAll('[data-role="accordion-icon-open"]'); // All accordion open icons
 
-  accordionContents.forEach((accordionContent) => {
-      accordionContent.style.display = "none"; //Hides all accordion contents
-  });
-
-  accordionIconsClosed.forEach((icon) => {
-    icon.style.display = "flex"
-  })
-
-  accordionIconsOpen.forEach((icon) => {
-    icon.style.display = "none"
-  })
-
-  accordionContainers.forEach((accordionContainer, index) => {
-      accordionContainer.addEventListener("click", () => {
-          if (accordionContents[index].style.display === "flex") {
-              // If the accordion is already open, close it
-              accordionContents[index].style.display = "none";
-              accordionIconsClosed[index].style.display = "flex";
-              accordionIconsOpen[index].style.display = "none"
-          } else {
-              // If the accordion is closed, open it
               accordionContents.forEach((accordionContent) => {
                   accordionContent.style.display = "none"; //Hides all accordion contents
               });
 
-              accordionIconsClosed.forEach((accordionIcon) => {
-                  accordionIcon.style.display = "flex"; // Resets all icon transforms to 0deg (default)
-              });
-
-              accordionIconsOpen.forEach((accordionIcon) => {
-                accordionIcon.style.display = "none";
+              accordionIconsClosed.forEach((icon) => {
+                icon.style.display = "flex"
               })
-              
-              accordionContents[index].style.display = "flex"; // Shows accordion content
-              accordionIconsClosed[index].style.display = "none"; // Rotates accordion icon 180deg
-              accordionIconsOpen[index].style.display = "flex";
-          }
-      });
-  });
-</script>
-`}
+
+              accordionIconsOpen.forEach((icon) => {
+                icon.style.display = "none"
+              })
+
+              accordionContainers.forEach((accordionContainer, index) => {
+                  accordionContainer.addEventListener("click", () => {
+                      if (accordionContents[index].style.display === "flex") {
+                          // If the accordion is already open, close it
+                          accordionContents[index].style.display = "none";
+                          accordionIconsClosed[index].style.display = "flex";
+                          accordionIconsOpen[index].style.display = "none"
+                      } else {
+                          // If the accordion is closed, open it
+                          accordionContents.forEach((accordionContent) => {
+                              accordionContent.style.display = "none"; //Hides all accordion contents
+                          });
+
+                          accordionIconsClosed.forEach((accordionIcon) => {
+                              accordionIcon.style.display = "flex"; // Resets all icon transforms to 0deg (default)
+                          });
+
+                          accordionIconsOpen.forEach((accordionIcon) => {
+                            accordionIcon.style.display = "none";
+                          })
+                          
+                          accordionContents[index].style.display = "flex"; // Shows accordion content
+                          accordionIconsClosed[index].style.display = "none"; // Rotates accordion icon 180deg
+                          accordionIconsOpen[index].style.display = "flex";
+                      }
+                  });
+              });
+            </script>`}
           ></Script>
         </div>
       </div>

@@ -63,6 +63,7 @@
   fill: var(--dl-color-gray-black);
   color: var(--dl-color-gray-black);
   background-color: #ffcf77;
+  margin-top: 10px;
 }
 .cta2-text3 {
   display: inline-block;
@@ -73,6 +74,22 @@
 .cta2-text5 {
   color: #fffdfd;
   display: inline-block;
+}
+.payment-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+.payment-popup h2 {
+  margin-top: 0;
+}
+.payment-popup button {
+  margin-top: 10px;
 }
 @media(max-width: 991px) {
   .cta2-container2 {

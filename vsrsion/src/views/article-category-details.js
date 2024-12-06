@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Script from 'dangerous-html/react'
@@ -10,14 +10,47 @@ import Footer3 from '../components/footer3'
 import './article-category-details.css'
 
 const ArticleCategoryDetails = (props) => {
+  const [category, setCategory] = useState('AI');
+  const [featuredArticle, setFeaturedArticle] = useState({});
+  const [articles, setArticles] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const articlesPerPage = 10;
+
+  useEffect(() => {
+    // Placeholder for fetching featured article and articles based on category
+    const fetchArticles = async () => {
+      // Simulate fetching featured article
+      const fetchedFeaturedArticle = {
+        title: 'Unlocking the Potential of AI: Latest Breakthroughs and Insights',
+        date: '2021-09-15',
+        author: 'AI Enthusiast',
+        imageSrc: '/New Folder/a%20simple%20text-based%20logo%20for%20a%20show%20titled%20ai-photoroom-1400w.png'
+      };
+      setFeaturedArticle(fetchedFeaturedArticle);
+
+      // Simulate fetching articles
+      const fetchedArticles = Array.from({ length: 50 }, (_, index) => ({
+        serial: index + 1,
+        title: `Article ${index + 1}`,
+        date: `2021-09-${15 + (index % 30)}`,
+      }));
+      setArticles(fetchedArticles);
+    };
+
+    fetchArticles();
+  }, [category]);
+
+  const indexOfLastArticle = currentPage * articlesPerPage;
+  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
+  const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="article-category-details-container1">
       <Helmet>
-        <title>Article-Category-details - AI Research Hubs</title>
-        <meta
-          property="og:title"
-          content="Article-Category-details - AI Research Hubs"
-        />
+        <title>{category} Articles - AI Research Hubs</title>
+        <meta property="og:title" content={`${category} Articles - AI Research Hubs`} />
       </Helmet>
       <header className="article-category-details-header1">
         <header
@@ -106,12 +139,6 @@ const ArticleCategoryDetails = (props) => {
               >
                 <path d="M585.143 512c0-80.571-65.714-146.286-146.286-146.286s-146.286 65.714-146.286 146.286 65.714 146.286 146.286 146.286 146.286-65.714 146.286-146.286zM664 512c0 124.571-100.571 225.143-225.143 225.143s-225.143-100.571-225.143-225.143 100.571-225.143 225.143-225.143 225.143 100.571 225.143 225.143zM725.714 277.714c0 29.143-23.429 52.571-52.571 52.571s-52.571-23.429-52.571-52.571 23.429-52.571 52.571-52.571 52.571 23.429 52.571 52.571zM438.857 152c-64 0-201.143-5.143-258.857 17.714-20 8-34.857 17.714-50.286 33.143s-25.143 30.286-33.143 50.286c-22.857 57.714-17.714 194.857-17.714 258.857s-5.143 201.143 17.714 258.857c8 20 17.714 34.857 33.143 50.286s30.286 25.143 50.286 33.143c57.714 22.857 194.857 17.714 258.857 17.714s201.143 5.143 258.857-17.714c20-8 34.857-17.714 50.286-33.143s25.143-30.286 33.143-50.286c22.857-57.714 17.714-194.857 17.714-258.857s5.143-201.143-17.714-258.857c-8-20-17.714-34.857-33.143-50.286s-30.286-25.143-50.286-33.143c-57.714-22.857-194.857-17.714-258.857-17.714zM877.714 512c0 60.571 0.571 120.571-2.857 181.143-3.429 70.286-19.429 132.571-70.857 184s-113.714 67.429-184 70.857c-60.571 3.429-120.571 2.857-181.143 2.857s-120.571 0.571-181.143-2.857c-70.286-3.429-132.571-19.429-184-70.857s-67.429-113.714-70.857-184c-3.429-60.571-2.857-120.571-2.857-181.143s-0.571-120.571 2.857-181.143c3.429-70.286 19.429-132.571 70.857-184s113.714-67.429 184-70.857c60.571-3.429 120.571-2.857 181.143-2.857s120.571-0.571 181.143 2.857c70.286 3.429 132.571 19.429 184 70.857s67.429 113.714 70.857 184c3.429 60.571 2.857 120.571 2.857 181.143z"></path>
               </svg>
-              <svg
-                viewBox="0 0 602.2582857142856 1024"
-                className="article-category-details-icon18"
-              >
-                <path d="M548 6.857v150.857h-89.714c-70.286 0-83.429 33.714-83.429 82.286v108h167.429l-22.286 169.143h-145.143v433.714h-174.857v-433.714h-145.714v-169.143h145.714v-124.571c0-144.571 88.571-223.429 217.714-223.429 61.714 0 114.857 4.571 130.286 6.857z"></path>
-              </svg>
             </div>
           </div>
           <Link
@@ -136,40 +163,37 @@ const ArticleCategoryDetails = (props) => {
       </header>
       <section className="article-category-details-hero">
         <div className="article-category-details-heading">
-          <h1 className="article-category-details-header2">
-            &#123;Category Name&#125;
-          </h1>
+          <h1 className="article-category-details-header2">{category} Articles</h1>
           <p className="article-category-details-caption">
-            Explore our curated collection of articles delving into
-            &#123;Category name&#125; concepts, techniques, and applications.
+            Explore our curated collection of articles delving into {category} concepts, techniques, and applications.
           </p>
         </div>
         <div className="article-category-details-buttons"></div>
       </section>
       <BlogPostHeader5
-        date={
-          <Fragment>
-            <span className="article-category-details-text15">
-              September 15, 2021
-            </span>
-          </Fragment>
-        }
-        avatarName={
-          <Fragment>
-            <span className="article-category-details-text16">
-              AI Enthusiast
-            </span>
-          </Fragment>
-        }
-        blogPostTitle={
-          <Fragment>
-            <span className="article-category-details-text17">
-              Unlocking the Potential of AI: Latest Breakthroughs and Insights
-            </span>
-          </Fragment>
-        }
-      ></BlogPostHeader5>
-      <ul className="list"></ul>
+        date={<Fragment><span className="article-category-details-text15">{featuredArticle.date}</span></Fragment>}
+        avatarName={<Fragment><span className="article-category-details-text16">{featuredArticle.author}</span></Fragment>}
+        blogPostTitle={<Fragment><span className="article-category-details-text17">{featuredArticle.title}</span></Fragment>}
+        blogPostImageSrc={featuredArticle.imageSrc}
+      />
+      <ul className="list">
+        {currentArticles.map((article, index) => (
+          <li key={index}>
+            <div className="article-row">
+              <span>{article.serial}</span>
+              <span>{article.title}</span>
+              <span>{article.date}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div className="pagination">
+        {Array.from({ length: Math.ceil(articles.length / articlesPerPage) }, (_, index) => (
+          <button key={index} onClick={() => paginate(index + 1)}>
+            {index + 1}
+          </button>
+        ))}
+      </div>
       <div>
         <div className="article-category-details-container5">
           <Script
