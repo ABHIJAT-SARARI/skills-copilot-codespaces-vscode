@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Script from 'dangerous-html/react';
 
@@ -15,16 +15,27 @@ import './about.css'
 const About = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
   const username = "John Doe"; // Placeholder for actual username
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 991) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="about-container1">
-     <Helmet>
+      <Helmet>
         <title>AI Research Hubs</title>
         <meta property="og:title" content="AI Research Hubs" />
       </Helmet>
       <header className="home-header1">
         <header data-thq="thq-navbar" className="home-navbar">
-        <img src={logo} alt="Logo" className="navbar-logo" />
+          <img src={logo} alt="Logo" className="navbar-logo" />
           <div
             data-thq="thq-navbar-nav"
             data-role="Nav"
@@ -34,7 +45,17 @@ const About = (props) => {
               data-thq="thq-navbar-nav-links"
               data-role="Nav"
               className="about-nav1"
-            ></nav>
+            >
+              <Link to="/" className="about-navlink1 button-clean button">
+                Home
+              </Link>
+              <Link to="/infographics" className="about-navlink2 button-clean button">
+                Infographics
+              </Link>
+              <Link to="/articles" className="about-navlink3 button-clean button">
+                Articles
+              </Link>
+            </nav>
           </div>
           <div data-thq="thq-navbar-btn-group" className="about-btn-group">
             <div className="about-socials"></div>
@@ -48,21 +69,21 @@ const About = (props) => {
             )}
           </div>
           <div data-thq="thq-burger-menu" className="about-burger-menu">
-            <button className="button about-button">
+            <button className="button about-button" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               <svg viewBox="0 0 1024 1024" className="about-icon10">
                 <path d="M128 554.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 298.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 810.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"></path>
               </svg>
             </button>
           </div>
-          <div data-thq="thq-mobile-menu" className="about-mobile-menu">
+          <div data-thq="thq-mobile-menu" className={`about-mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
             <div
               data-thq="thq-mobile-menu-nav"
               data-role="Nav"
               className="about-nav2"
             >
               <div className="about-container2">
-              <img src={logo} alt="Logo" className="navbar-logo" />
-                <div data-thq="thq-close-menu" className="about-menu-close">
+                <img src={logo} alt="Logo" className="navbar-logo" />
+                <div data-thq="thq-close-menu" className="about-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
                   <svg viewBox="0 0 1024 1024" className="about-icon12">
                     <path d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"></path>
                   </svg>
@@ -73,8 +94,15 @@ const About = (props) => {
                 data-role="Nav"
                 className="about-nav3"
               >
-                <span className="about-text10">About</span>
-                <span className="about-text13">Team</span>
+                <Link to="/" className="about-navlink-mobile button-clean button">
+                  Home
+                </Link>
+                <Link to="/infographics" className="about-navlink-mobile button-clean button">
+                  Infographics
+                </Link>
+                <Link to="/articles" className="about-navlink-mobile button-clean button">
+                  Articles
+                </Link>
               </nav>
               <div className="about-container3">
                 {isLoggedIn ? (
@@ -108,15 +136,6 @@ const About = (props) => {
               </svg>
             </div>
           </div>
-          <Link to="/" className="about-navlink1 button-clean button">
-            Home
-          </Link>
-          <Link to="/" className="about-navlink2 button-clean button">
-            Infographics
-          </Link>
-          <Link to="/" className="about-navlink3 button-clean button">
-            Articles
-          </Link>
         </header>
         <Banner1
           content1={
@@ -360,4 +379,6 @@ const About = (props) => {
   )
 }
 
+
 export default About
+

@@ -18,6 +18,7 @@ const ArticleCategoryDetails = (props) => {
   const articlesPerPage = 10;
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
   const username = "John Doe"; // Placeholder for actual username
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Placeholder for fetching featured article and articles based on category
@@ -70,7 +71,11 @@ const ArticleCategoryDetails = (props) => {
               data-thq="thq-navbar-nav-links"
               data-role="Nav"
               className="article-category-details-nav1"
-            ></nav>
+            >
+              <Link to="/" className="article-category-details-navlink1 button-clean button">Home</Link>
+              <Link to="/infographics" className="article-category-details-navlink2 button-clean button">Infographics</Link>
+              <Link to="/about" className="article-category-details-navlink3 button-clean button">About</Link>
+            </nav>
           </div>
           <div
             data-thq="thq-navbar-btn-group"
@@ -90,7 +95,10 @@ const ArticleCategoryDetails = (props) => {
             data-thq="thq-burger-menu"
             className="article-category-details-burger-menu"
           >
-            <button className="button article-category-details-button">
+            <button
+              className="button article-category-details-button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
               <svg
                 viewBox="0 0 1024 1024"
                 className="article-category-details-icon10"
@@ -101,7 +109,7 @@ const ArticleCategoryDetails = (props) => {
           </div>
           <div
             data-thq="thq-mobile-menu"
-            className="article-category-details-mobile-menu"
+            className={`article-category-details-mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}
           >
             <div
               data-thq="thq-mobile-menu-nav"
@@ -113,6 +121,7 @@ const ArticleCategoryDetails = (props) => {
                 <div
                   data-thq="thq-close-menu"
                   className="article-category-details-menu-close"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <svg
                     viewBox="0 0 1024 1024"
@@ -127,8 +136,9 @@ const ArticleCategoryDetails = (props) => {
                 data-role="Nav"
                 className="article-category-details-nav3"
               >
-                <span className="article-category-details-text10">About</span>
-                <span className="article-category-details-text13">Team</span>
+                <Link to="/" className="article-category-details-navlink-mobile">Home</Link>
+                <Link to="/infographics" className="article-category-details-navlink-mobile">Infographics</Link>
+                <Link to="/about" className="article-category-details-navlink-mobile">About</Link>
               </nav>
               <div className="article-category-details-container3">
                 {isLoggedIn ? (
@@ -156,24 +166,6 @@ const ArticleCategoryDetails = (props) => {
               </svg>
             </div>
           </div>
-          <Link
-            to="/article-details"
-            className="article-category-details-navlink1 button-clean button"
-          >
-            Home
-          </Link>
-          <Link
-            to="/article-details"
-            className="article-category-details-navlink2 button-clean button"
-          >
-            Infographics
-          </Link>
-          <Link
-            to="/article-details"
-            className="article-category-details-navlink3 button-clean button"
-          >
-            About
-          </Link>
         </header>
       </header>
       <section className="article-category-details-hero">

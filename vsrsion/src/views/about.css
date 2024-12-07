@@ -85,6 +85,9 @@
   justify-content: space-between;
   background-color: #fff;
 }
+.about-mobile-menu.open {
+  transform: translateX(0);
+}
 .about-nav2 {
   display: flex;
   align-items: flex-start;
@@ -107,6 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .about-icon12 {
   width: var(--dl-size-size-xsmall);
@@ -190,6 +194,11 @@
   animation-direction: normal;
   animation-iteration-count: 1;
   animation-timing-function: ease;
+}
+.about-navlink-mobile {
+  color: #000000;
+  text-decoration: none;
+  margin-bottom: var(--dl-space-space-unit);
 }
 .about-text15 {
   color: #f9f4f4;
