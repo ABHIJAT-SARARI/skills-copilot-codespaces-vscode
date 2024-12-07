@@ -30,7 +30,11 @@ const Infographicsdetails = (props) => {
         <div data-thq="thq-navbar" className="home-navbar">
           <img src={logo} alt="Logo" className="navbar-logo" />
           <div data-thq="thq-navbar-nav" data-role="Nav" className="infographicsdetails-desktop-menu">
-            <nav data-thq="thq-navbar-nav-links" data-role="Nav" className="infographicsdetails-nav1"></nav>
+            <nav data-thq="thq-navbar-nav-links" data-role="Nav" className="infographicsdetails-nav1">
+              <Link to="/articles" className="infographicsdetails-navlink1">Home</Link>
+              <Link to="/articles" className="infographicsdetails-navlink2">Articles</Link>
+              <Link to="/articles" className="infographicsdetails-navlink3">About</Link>
+            </nav>
           </div>
           <div data-thq="thq-navbar-btn-group" className="infographicsdetails-btn-group">
             <div className="infographicsdetails-socials"></div>
@@ -61,8 +65,9 @@ const Infographicsdetails = (props) => {
                 </div>
               </div>
               <nav data-thq="thq-mobile-menu-nav-links" data-role="Nav" className="infographicsdetails-nav3">
-                <span className="infographicsdetails-text10">About</span>
-                <span className="infographicsdetails-text11">Team</span>
+                <Link to="/articles" className="infographicsdetails-navlink1">Home</Link>
+                <Link to="/articles" className="infographicsdetails-navlink2">Articles</Link>
+                <Link to="/articles" className="infographicsdetails-navlink3">About</Link>
               </nav>
               <div className="infographicsdetails-container12">
                 {isLoggedIn ? (
@@ -87,9 +92,6 @@ const Infographicsdetails = (props) => {
               </svg>
             </div>
           </div>
-          <Link to="/articles" className="infographicsdetails-navlink1 button-clean button">Home</Link>
-          <Link to="/articles" className="infographicsdetails-navlink2 button-clean button">Articles</Link>
-          <Link to="/articles" className="infographicsdetails-navlink3 button-clean button">About</Link>
         </div>
       </header>
       <section className="infographicsdetails-hero">

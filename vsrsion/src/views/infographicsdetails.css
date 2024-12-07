@@ -317,6 +317,11 @@
   color: #ffffff;
   display: inline-block;
 }
+.infographicsdetails-nav3 .infographicsdetails-navlink1,
+.infographicsdetails-nav3 .infographicsdetails-navlink2,
+.infographicsdetails-nav3 .infographicsdetails-navlink3 {
+  color: #000000;
+}
 @media(max-width: 991px) {
   .infographicsdetails-desktop-menu {
     display: none;
@@ -327,6 +332,9 @@
   .infographicsdetails-burger-menu {
     display: flex;
   }
+  .infographicsdetails-mobile-menu {
+    display: flex;
+  }
   .infographicsdetails-button {
     display: flex;
     padding: var(--dl-space-space-unit);
@@ -334,6 +342,20 @@
   }
   .infographicsdetails-logo2 {
     color: #000000;
+  }
+}
+@media(min-width: 992px) {
+  .infographicsdetails-desktop-menu {
+    display: flex;
+  }
+  .infographicsdetails-btn-group {
+    display: flex;
+  }
+  .infographicsdetails-burger-menu {
+    display: none;
+  }
+  .infographicsdetails-mobile-menu {
+    display: none;
   }
 }
 @media(max-width: 767px) {

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import Script from 'dangerous-html/react'
@@ -12,6 +12,27 @@ import './home.css'
 const Home = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
   const username = "John Doe"; // Placeholder for actual username
+
+  useEffect(() => {
+    const burgerMenu = document.querySelector('.home-burger-menu button');
+    const mobileMenu = document.querySelector('.home-mobile-menu');
+    const closeMenu = document.querySelector('.home-menu-close');
+    const mobileLinks = document.querySelectorAll('.home-nav3 a');
+
+    const toggleMobileMenu = () => {
+      mobileMenu.style.transform = mobileMenu.style.transform === 'translateX(0%)' ? 'translateX(100%)' : 'translateX(0%)';
+    };
+
+    burgerMenu.addEventListener('click', toggleMobileMenu);
+    closeMenu.addEventListener('click', toggleMobileMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+
+    return () => {
+      burgerMenu.removeEventListener('click', toggleMobileMenu);
+      closeMenu.removeEventListener('click', toggleMobileMenu);
+      mobileLinks.forEach(link => link.removeEventListener('click', toggleMobileMenu));
+    };
+  }, []);
 
   return (
     <div className="home-container1">
@@ -45,7 +66,7 @@ const Home = (props) => {
                 Infographics
               </Link>
               <Link
-                to="/articles"
+                to="/about"
                 className="home-navlink3 button-clean button"
               >
                 About
@@ -89,9 +110,9 @@ const Home = (props) => {
                 data-role="Nav"
                 className="home-nav3"
               >
-                <span className="home-text10">Articles</span>
-                <span className="home-text11">Infographics</span>
-                <span className="home-text12">About</span>
+                <Link to="/articles" className="home-text10">Articles</Link>
+                <Link to="/infographics" className="home-text11">Infographics</Link>
+                <Link to="/about" className="home-text12">About</Link>
               </nav>
               <div className="home-container3">
                 {isLoggedIn ? (

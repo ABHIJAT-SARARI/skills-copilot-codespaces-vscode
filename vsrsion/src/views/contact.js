@@ -23,14 +23,6 @@ const Contact = (props) => {
           <img src={logo} alt="Logo" className="navbar-logo" />
           <div data-thq="thq-navbar-btn-group" className="contact-btn-group">
             <div className="contact-socials"></div>
-            {isLoggedIn ? (
-              <div className="profile">
-                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
-                <span>{username}</span>
-              </div>
-            ) : (
-              <button className="contact-login button">Register/Login</button>
-            )}
           </div>
           <div
             data-thq="thq-navbar-nav"
@@ -45,12 +37,20 @@ const Contact = (props) => {
               <Link to="/" className="contact-navlink1 button-clean button">
                 Home
               </Link>
-              <Link to="/" className="contact-navlink2 button-clean button">
+              <Link to="/infographics" className="contact-navlink2 button-clean button">
                 Infographics
               </Link>
-              <Link to="/" className="contact-navlink3 button-clean button">
+              <Link to="/articles" className="contact-navlink3 button-clean button">
                 Articles
               </Link>
+              {isLoggedIn ? (
+                <div className="profile">
+                  <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                  <span>{username}</span>
+                </div>
+              ) : (
+                <button className="contact-login button">Register/Login</button>
+              )}
             </nav>
           </div>
           <div data-thq="thq-burger-menu" className="contact-burger-menu">
@@ -82,10 +82,10 @@ const Contact = (props) => {
                 <Link to="/" className="contact-navlink1 button-clean button contact-mobile-link">
                   Home
                 </Link>
-                <Link to="/" className="contact-navlink2 button-clean button contact-mobile-link">
+                <Link to="/infographics" className="contact-navlink2 button-clean button contact-mobile-link">
                   Infographics
                 </Link>
-                <Link to="/" className="contact-navlink3 button-clean button contact-mobile-link">
+                <Link to="/articles" className="contact-navlink3 button-clean button contact-mobile-link">
                   Articles
                 </Link>
               </nav>
