@@ -40,7 +40,7 @@ const Articles = () => {
               >
                 Infographics
               </Link>
-              <Link to="/" className="articles-navlink3 button-clean button">
+              <Link to="/about" className="articles-navlink3 button-clean button">
                 About
               </Link>
             </nav>
@@ -82,8 +82,9 @@ const Articles = () => {
                 data-role="Nav"
                 className="articles-nav3"
               >
-                <span className="articles-text10">About</span>
-                <span className="articles-text13">Team</span>
+                <Link to="/" className="articles-text10">Home</Link>
+                <Link to="/infographics" className="articles-text10">Infographics</Link>
+                <Link to="/about" className="articles-text10">About</Link>
               </nav>
               <div className="articles-container3">
                 {isLoggedIn ? (
