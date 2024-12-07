@@ -22,11 +22,12 @@ const ArticleDetails = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
   const username = "John Doe"; // Placeholder for actual username
   const [showComments, setShowComments] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Placeholder for fetching article data
     setArticle({
-      title: 'How Neural Networks Work: A Beginner’s Guide',
+      title: 'How Neural Networks Work: A Beginners Guide',
       content: (
         <Fragment>
           <h2>Introduction</h2>
@@ -72,6 +73,21 @@ const ArticleDetails = (props) => {
       })
     })
   }, [article.content])
+
+  useEffect(() => {
+    const burgerMenu = document.querySelector('.article-details-burger-menu button');
+    const mobileMenu = document.querySelector('.article-details-mobile-menu');
+
+    const toggleMobileMenu = () => {
+      setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    burgerMenu.addEventListener('click', toggleMobileMenu);
+
+    return () => {
+      burgerMenu.removeEventListener('click', toggleMobileMenu);
+    };
+  }, [isMobileMenuOpen]);
 
   const handleLike = () => {
     if (isLoggedIn) {
@@ -128,7 +144,23 @@ const ArticleDetails = (props) => {
               data-thq="thq-navbar-nav-links"
               data-role="Nav"
               className="article-details-nav1"
-            ></nav>
+            >
+              <Link to="/" className="article-details-navlink1 button-clean button">
+                Home
+              </Link>
+              <Link
+                to="/infographics"
+                className="article-details-navlink2 button-clean button"
+              >
+                Infographics
+              </Link>
+              <Link
+                to="/about"
+                className="article-details-navlink3 button-clean button"
+              >
+                About
+              </Link>
+            </nav>
           </div>
           <div
             data-thq="thq-navbar-btn-group"
@@ -156,7 +188,7 @@ const ArticleDetails = (props) => {
           </div>
           <div
             data-thq="thq-mobile-menu"
-            className="article-details-mobile-menu"
+            className={`article-details-mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}
           >
             <div
               data-thq="thq-mobile-menu-nav"
@@ -182,8 +214,21 @@ const ArticleDetails = (props) => {
                 data-role="Nav"
                 className="article-details-nav3"
               >
-                <span className="article-details-text10">About</span>
-                <span className="article-details-text11">Team</span>
+                <Link to="/" className="article-details-navlink1 button-clean button black-text">
+                  Home
+                </Link>
+                <Link
+                  to="/infographics"
+                  className="article-details-navlink2 button-clean button black-text"
+                >
+                  Infographics
+                </Link>
+                <Link
+                  to="/about"
+                  className="article-details-navlink3 button-clean button black-text"
+                >
+                  About
+                </Link>
               </nav>
               <div className="article-details-container3">
                 {isLoggedIn ? (
@@ -217,21 +262,6 @@ const ArticleDetails = (props) => {
               </svg>
             </div>
           </div>
-          <Link to="/" className="article-details-navlink1 button-clean button">
-            Home
-          </Link>
-          <Link
-            to="/article-details"
-            className="article-details-navlink2 button-clean button"
-          >
-            Infographics
-          </Link>
-          <Link
-            to="/article-details"
-            className="article-details-navlink3 button-clean button"
-          >
-            About
-          </Link>
         </header>
       </header>
       <section className="article-details-hero">
