@@ -1,9 +1,10 @@
-
+require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const dbConfig = require('./config/db');
+const { neon } = require('@neondatabase/serverless');
+
+const sql = neon(process.env.DATABASE_URL);
 
 const app = express();
 
@@ -11,13 +12,16 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Database connection
-mongoose.connect(dbConfig.url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log(err));
+// Database connection test
+app.get('/api/db-test', async (req, res) => {
+  try {
+    const result = await sql`SELECT version()`;
+    const { version } = result[0];
+    res.json({ version });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 // Routes
 app.use('/api/infographics', require('./routes/infographics'));
