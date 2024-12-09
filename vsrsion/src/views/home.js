@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-
+import axios from 'axios'
+import Modal from 'react-modal'
 import Script from 'dangerous-html/react'
 import { Helmet } from 'react-helmet'
 import logo from '../assets/without_bg.png'
@@ -10,8 +11,78 @@ import Footer3 from '../components/footer3'
 import './home.css'
 
 const Home = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Placeholder for actual login state
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Set to false initially
+  const [showModal, setShowModal] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePictureUrl, setProfilePictureUrl] = useState(null); // Add state for profile picture URL
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [role, setRole] = useState('reader'); // Default role to 'reader'
   const username = "John Doe"; // Placeholder for actual username
+
+  const handleProfilePictureChange = (e) => {
+    setProfilePicture(e.target.files[0]);
+  };
+
+  const handleLoginRegister = async () => {
+    const formData = new FormData();
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('role', role);
+    if (!isLogin && profilePicture) {
+      formData.append('profilePicture', profilePicture);
+    }
+
+    console.log('Form data:', {
+      firstName,
+      lastName,
+      email,
+      password,
+      role,
+      profilePicture
+    });
+
+    try {
+      const response = await axios.post(`http://localhost:5000/api/${isLogin ? 'login' : 'register'}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      console.log('Server response:', response.data); // Log the server response
+
+      if (response.data.success) {
+        if (isLogin) {
+          setIsLoggedIn(true);
+          setProfilePictureUrl(response.data.profilePictureUrl); // Set profile picture URL
+          setShowModal(false);
+        } else {
+          alert('Registration successful. Please log in with your credentials.');
+          setIsLogin(true);
+        }
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error('Error during login/register:', error.response ? error.response.data : error.message); // Log detailed error
+      alert('An error occurred. Please try again.');
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      const response = await axios.post('/api/forgot-password', { email });
+      alert(response.data.message);
+    } catch (error) {
+      console.error('Error during password reset:', error.response ? error.response.data : error.message); // Log detailed error
+      alert('An error occurred. Please try again.');
+    }
+  };
 
   useEffect(() => {
     const burgerMenu = document.querySelector('.home-burger-menu button');
@@ -77,11 +148,11 @@ const Home = (props) => {
             <div className="home-socials"></div>
             {isLoggedIn ? (
               <div className="profile">
-                <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                <img src={profilePictureUrl || "/path/to/profile-icon.png"} alt="Profile" className="profile-icon" />
                 <span>{username}</span>
               </div>
             ) : (
-              <button className="home-view1 button">Register/Login</button>
+              <button className="home-view1 button" onClick={() => setShowModal(true)}>Register/Login</button>
             )}
           </div>
           <div data-thq="thq-burger-menu" className="home-burger-menu">
@@ -117,11 +188,11 @@ const Home = (props) => {
               <div className="home-container3">
                 {isLoggedIn ? (
                   <div className="profile">
-                    <img src="/path/to/profile-icon.png" alt="Profile" className="profile-icon" />
+                    <img src={profilePictureUrl || "/path/to/profile-icon.png"} alt="Profile" className="profile-icon" />
                     <span>{username}</span>
                   </div>
                 ) : (
-                  <button className="home-login button">Register/Login</button>
+                  <button className="home-login button" onClick={() => setShowModal(true)}>Register/Login</button>
                 )}
               </div>
             </div>
@@ -446,6 +517,49 @@ const Home = (props) => {
         }
         rootClassName="footer3root-class-name"
       ></Footer3>
+      <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)} className="modal">
+        <h2>{isLogin ? 'Login' : 'Register'}</h2>
+        {!isLogin && (
+          <>
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </>
+        )}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {!isLogin && (
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleProfilePictureChange}
+          />
+        )}
+        <button onClick={handleLoginRegister}>{isLogin ? 'Login' : 'Register'}</button>
+        <button onClick={() => setIsLogin(!isLogin)}>
+          {isLogin ? 'Switch to Register' : 'Switch to Login'}
+        </button>
+        {isLogin && <button onClick={handleForgotPassword}>Forgot Password?</button>}
+      </Modal>
     </div>
   )
 }
