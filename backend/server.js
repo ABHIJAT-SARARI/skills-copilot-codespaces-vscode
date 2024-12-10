@@ -5,17 +5,39 @@ const cors = require('cors');
 const { neon } = require('@neondatabase/serverless');
 const fileUpload = require('express-fileupload');
 const logger = require('./utils/logger');
+const path = require('path');
 
 const sql = neon(process.env.DATABASE_URL);
 
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://symmetrical-broccoli-q7qx56gj67rg3x5g5-3000.app.github.dev', // Allow requests from the frontend
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(fileUpload());
 app.use('/uploads', express.static('uploads'));
 app.use('/logs', express.static('logs'));
+
+// Serve static files with correct MIME type
+app.use('/path/to', express.static(path.join(__dirname, 'path/to'), {
+  setHeaders: (res, filePath) => {
+    if (path.extname(filePath) === '.js') {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
+
+// Serve accordionScript.js with correct MIME type
+app.use('/scripts', express.static(path.join(__dirname, 'scripts'), {
+  setHeaders: (res, filePath) => {
+    if (path.basename(filePath) === 'accordionScript.js') {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
 
 // Database connection test
 app.get('/api/db-test', async (req, res) => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import './auth-component.css';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -7,35 +8,75 @@ const AuthComponent = ({ onLogin, onRegister, onForgotPassword }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [otp, setOtp] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [recaptchaToken, setRecaptchaToken] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submitted');
     if (!recaptchaToken) {
       alert('Please complete the reCAPTCHA');
       return;
     }
     if (isLogin) {
+      console.log('Logging in with email:', email);
       await onLogin(email, password, recaptchaToken);
     } else {
-      await onRegister(email, password, otp, profilePicture, recaptchaToken);
+      // Register user
+      const formData = new FormData();
+      formData.append('firstName', firstName);
+      formData.append('lastName', lastName);
+      formData.append('email', email);
+      formData.append('password', password);
+      if (profilePicture) {
+        formData.append('profilePicture', profilePicture);
+      }
+      console.log('Registering user with data:', formData);
+      try {
+        await onRegister(formData, recaptchaToken);
+      } catch (error) {
+        console.error('Registration error:', error);
+      }
     }
   };
 
   const handleForgotPassword = async () => {
+    console.log('Forgot password clicked');
     if (!recaptchaToken) {
       alert('Please complete the reCAPTCHA');
       return;
     }
-    await onForgotPassword(email, otp, recaptchaToken);
+    await onForgotPassword(email, recaptchaToken);
   };
 
   return (
     <div className="auth-component">
       <h2>{isLogin ? 'Login' : 'Register'}</h2>
       <form onSubmit={handleSubmit}>
+        {!isLogin && (
+          <>
+            <div className="auth-component-field">
+              <label>First Name:</label>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="auth-component-field">
+              <label>Last Name:</label>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
+          </>
+        )}
         <div className="auth-component-field">
           <label>Email:</label>
           <input
@@ -55,33 +96,24 @@ const AuthComponent = ({ onLogin, onRegister, onForgotPassword }) => {
           />
         </div>
         {!isLogin && (
-          <>
-            <div className="auth-component-field">
-              <label>OTP:</label>
-              <input
-                type="text"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                required
-              />
-            </div>
-            <div className="auth-component-field">
-              <label>Profile Picture:</label>
-              <input
-                type="file"
-                onChange={(e) => setProfilePicture(e.target.files[0])}
-                required
-              />
-            </div>
-          </>
+          <div className="auth-component-field">
+            <label>Profile Picture (optional):</label>
+            <input
+              type="file"
+              onChange={(e) => setProfilePicture(e.target.files[0])}
+            />
+          </div>
         )}
         <ReCAPTCHA
-          sitekey="YOUR_RECAPTCHA_SITE_KEY"
+          sitekey="6LeCdZYqAAAAAAEKKSidDjNY6Apxa8op8kcOrdOL"
           onChange={(token) => setRecaptchaToken(token)}
         />
         <button type="submit">{isLogin ? 'Login' : 'Register'}</button>
       </form>
-      <button onClick={() => setIsLogin(!isLogin)}>
+      <button onClick={() => {
+        console.log('Switching to', isLogin ? 'Register' : 'Login');
+        setIsLogin(!isLogin);
+      }}>
         {isLogin ? 'Switch to Register' : 'Switch to Login'}
       </button>
       {isLogin && (

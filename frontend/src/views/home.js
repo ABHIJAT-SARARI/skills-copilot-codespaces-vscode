@@ -18,17 +18,45 @@ const Home = (props) => {
   const [role, setRole] = useState('reader'); // Default role to 'reader'
   const username = "John Doe"; // Placeholder for actual username
 
-
   const handleLogin = async (email, password, recaptchaToken) => {
-    // Implement login logic here
+    try {
+      console.log('Logging in with email:', email);
+      const response = await axios.post('https://symmetrical-broccoli-q7qx56gj67rg3x5g5-5000.app.github.dev/api/auth/login', { email, password, recaptchaToken });
+      setIsLoggedIn(true);
+      setProfilePictureUrl(response.data.profilePictureUrl);
+      setRole(response.data.role);
+      setShowModal(false);
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
-  const handleRegister = async (email, password, otp, profilePicture, recaptchaToken) => {
-    // Implement register logic here
+  const handleRegister = async (formData, recaptchaToken) => {
+    try {
+      console.log('Sending registration data to server:', formData);
+      const response = await axios.post('https://symmetrical-broccoli-q7qx56gj67rg3x5g5-5000.app.github.dev/api/auth/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('Registration response:', response.data);
+      setIsLoggedIn(true);
+      setProfilePictureUrl(response.data.profilePictureUrl);
+      setRole(response.data.role);
+      setShowModal(false);
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
   };
 
   const handleForgotPassword = async (email, otp, recaptchaToken) => {
-    // Implement forgot password logic here
+    try {
+      console.log('Sending forgot password request for email:', email);
+      await axios.post('https://symmetrical-broccoli-q7qx56gj67rg3x5g5-5000.app.github.dev/api/forgot-password', { email, otp, recaptchaToken });
+      alert('Password reset instructions sent to your email.');
+    } catch (error) {
+      console.error('Forgot password failed:', error);
+    }
   };
 
   useEffect(() => {

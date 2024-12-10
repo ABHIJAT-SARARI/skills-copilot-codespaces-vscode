@@ -1,12 +1,49 @@
+const { RecaptchaEnterpriseServiceClient } = require('@google-cloud/recaptcha-enterprise');
 const fs = require('fs');
 const path = require('path');
 const { sql } = require('@neondatabase/serverless');
 const bcrypt = require('bcrypt');
 const logger = require('../utils/logger');
 
+const recaptchaClient = new RecaptchaEnterpriseServiceClient();
+const projectID = 'my-projecttest-9-1733734127570';
+const recaptchaKey = '6LeCdZYqAAAAAAEKKSidDjNY6Apxa8op8kcOrdOL';
+
+const verifyRecaptchaToken = async (token) => {
+  const projectPath = recaptchaClient.projectPath(projectID);
+  const request = {
+    assessment: {
+      event: {
+        token: token,
+        siteKey: recaptchaKey,
+      },
+    },
+    parent: projectPath,
+  };
+
+  const [response] = await recaptchaClient.createAssessment(request);
+
+  if (!response.tokenProperties.valid) {
+    throw new Error(`Invalid reCAPTCHA token: ${response.tokenProperties.invalidReason}`);
+  }
+
+  return response.riskAnalysis.score;
+};
+
 const registerUser = async (req, res) => {
-  const { firstName, lastName, email, password, role } = req.body;
+  const { firstName, lastName, email, password, recaptchaToken } = req.body;
   const profilePicture = req.files ? req.files.profilePicture : null;
+
+  try {
+    const recaptchaScore = await verifyRecaptchaToken(recaptchaToken);
+    if (recaptchaScore < 0.5) {
+      logger('reCAPTCHA verification failed');
+      return res.status(400).json({ message: 'reCAPTCHA verification failed' });
+    }
+  } catch (error) {
+    logger(`reCAPTCHA verification error: ${error.message}`);
+    return res.status(400).json({ message: 'reCAPTCHA verification failed' });
+  }
 
   logger(`Registering user: ${email}`);
   logger(`Request body: ${JSON.stringify(req.body)}`);
@@ -26,19 +63,31 @@ const registerUser = async (req, res) => {
   }
 
   try {
+    logger('Inserting user into database');
     await sql`
-      INSERT INTO users (name, email, password, role, avatar_url, created_at, updated_at, is_active)
-      VALUES (${firstName + ' ' + lastName}, ${email}, ${hashedPassword}, ${role}, ${avatar_url}, NOW(), NOW(), true)
+      INSERT INTO general_users (first_name, last_name, email, password, avatar_url, created_at, updated_at, is_active)
+      VALUES (${firstName}, ${lastName}, ${email}, ${hashedPassword}, ${avatar_url}, NOW(), NOW(), true)
     `;
+    logger('User registered successfully');
     res.json({ success: true });
   } catch (error) {
     logger(`Error saving user to database: ${error.message}`);
-    res.status(500).json({ message: 'Error saving user to database' });
+    res.status(500).json({ message: 'Error saving user to database', error: error.message });
   }
 };
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, recaptchaToken } = req.body;
+
+  try {
+    const recaptchaScore = await verifyRecaptchaToken(recaptchaToken);
+    if (recaptchaScore < 0.5) {
+      return res.status(400).json({ message: 'reCAPTCHA verification failed' });
+    }
+  } catch (error) {
+    logger(`reCAPTCHA verification error: ${error.message}`);
+    return res.status(400).json({ message: 'reCAPTCHA verification failed' });
+  }
 
   logger(`Logging in user: ${email}`);
 
