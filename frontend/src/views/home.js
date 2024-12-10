@@ -8,6 +8,7 @@ import logo from '../assets/without_bg.png'
 import Hero17 from '../components/hero17'
 import Steps2 from '../components/steps2'
 import Footer3 from '../components/footer3'
+import AuthComponent from '../components/auth-component' // Import AuthComponent
 import './home.css'
 
 const Home = (props) => {
@@ -23,65 +24,17 @@ const Home = (props) => {
   const [role, setRole] = useState('reader'); // Default role to 'reader'
   const username = "John Doe"; // Placeholder for actual username
 
-  const handleProfilePictureChange = (e) => {
-    setProfilePicture(e.target.files[0]);
+
+  const handleLogin = async (email, password, recaptchaToken) => {
+    // Implement login logic here
   };
 
-  const handleLoginRegister = async () => {
-    const formData = new FormData();
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('role', role);
-    if (!isLogin && profilePicture) {
-      formData.append('profilePicture', profilePicture);
-    }
-
-    console.log('Form data:', {
-      firstName,
-      lastName,
-      email,
-      password,
-      role,
-      profilePicture
-    });
-
-    try {
-      const response = await axios.post(`http://localhost:5000/api/${isLogin ? 'login' : 'register'}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-
-      console.log('Server response:', response.data); // Log the server response
-
-      if (response.data.success) {
-        if (isLogin) {
-          setIsLoggedIn(true);
-          setProfilePictureUrl(response.data.profilePictureUrl); // Set profile picture URL
-          setShowModal(false);
-        } else {
-          alert('Registration successful. Please log in with your credentials.');
-          setIsLogin(true);
-        }
-      } else {
-        alert(response.data.message);
-      }
-    } catch (error) {
-      console.error('Error during login/register:', error.response ? error.response.data : error.message); // Log detailed error
-      alert('An error occurred. Please try again.');
-    }
+  const handleRegister = async (email, password, otp, profilePicture, recaptchaToken) => {
+    // Implement register logic here
   };
 
-  const handleForgotPassword = async () => {
-    try {
-      const response = await axios.post('/api/forgot-password', { email });
-      alert(response.data.message);
-    } catch (error) {
-      console.error('Error during password reset:', error.response ? error.response.data : error.message); // Log detailed error
-      alert('An error occurred. Please try again.');
-    }
+  const handleForgotPassword = async (email, otp, recaptchaToken) => {
+    // Implement forgot password logic here
   };
 
   useEffect(() => {
@@ -517,6 +470,18 @@ const Home = (props) => {
         }
         rootClassName="footer3root-class-name"
       ></Footer3>
+      <Modal
+        isOpen={showModal}
+        onRequestClose={() => setShowModal(false)}
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
+        <AuthComponent
+          onLogin={handleLogin}
+          onRegister={handleRegister}
+          onForgotPassword={handleForgotPassword}
+        />
+      </Modal>
       </div>
   )
 }
