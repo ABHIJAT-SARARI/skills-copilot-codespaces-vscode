@@ -14,13 +14,7 @@ import './home.css'
 const Home = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Set to false initially
   const [showModal, setShowModal] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [profilePicture, setProfilePicture] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null); // Add state for profile picture URL
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [role, setRole] = useState('reader'); // Default role to 'reader'
   const username = "John Doe"; // Placeholder for actual username
 
