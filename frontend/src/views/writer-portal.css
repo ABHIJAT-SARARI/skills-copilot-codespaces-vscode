@@ -1,4 +1,6 @@
 @import url('https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Sofia|Slabo|Inconsolata|Ubuntu');
 
 .writer-portal-container {
   width: 100%;
@@ -144,6 +146,26 @@
   padding: 5px;
   border-radius: 4px;
   font-family: 'Times New Roman', Times, serif;
+}
+
+.ql-font-sofia {
+  font-family: 'Sofia', sans-serif;
+}
+
+.ql-font-slabo {
+  font-family: 'Slabo', serif;
+}
+
+.ql-font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.ql-font-inconsolata {
+  font-family: 'Inconsolata', monospace;
+}
+
+.ql-font-ubuntu {
+  font-family: 'Ubuntu', sans-serif;
 }
 
 #editor {
