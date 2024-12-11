@@ -17,165 +17,145 @@ const WriterPortal = () => {
       const hljsScript = document.createElement('script')
       hljsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'
       hljsScript.onload = () => {
-        const Clipboard = window.Quill.import('modules/clipboard')
-        const Delta = window.Quill.import('delta')
-        const FontAttributor = window.Quill.import('attributors/class/font')
-        const Bold = window.Quill.import('formats/bold')
+        const katexScript = document.createElement('script')
+        katexScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.15/dist/katex.min.js'
+        katexScript.onload = () => {
+          const autoRenderScript = document.createElement('script')
+          autoRenderScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.15/dist/contrib/auto-render.min.js'
+          autoRenderScript.onload = () => {
+            const Clipboard = window.Quill.import('modules/clipboard')
+            const Delta = window.Quill.import('delta')
+            const FontAttributor = window.Quill.import('attributors/class/font')
+            const Bold = window.Quill.import('formats/bold')
 
-        // Customize font whitelist
-        FontAttributor.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu']
-        window.Quill.register(FontAttributor, true)
+            // Customize font whitelist
+            FontAttributor.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu']
+            window.Quill.register(FontAttributor, true)
 
-        // Customize bold format to use <b> tag
-        Bold.tagName = 'B'
-        window.Quill.register(Bold, true)
+            // Customize bold format to use <b> tag
+            Bold.tagName = 'B'
+            window.Quill.register(Bold, true)
 
-        // Custom module to log content changes
-        class LogContentModule {
-          constructor(quill, options) {
-            quill.on('text-change', () => {
-              console.log('Editor content changed:', quill.root.innerHTML)
-            })
-          }
-        }
-        window.Quill.register('modules/logContent', LogContentModule)
-
-        class PlainClipboard extends Clipboard {
-          convert(html = null) {
-            if (typeof html === 'string') {
-              this.container.innerHTML = html
+            // Custom module to log content changes
+            class LogContentModule {
+              constructor(quill, options) {
+                quill.on('text-change', () => {
+                  console.log('Editor content changed:', quill.root.innerHTML)
+                })
+              }
             }
-            let text = this.container.innerText
-            this.container.innerHTML = ''
-            return new Delta().insert(text)
-          }
-        }
+            window.Quill.register('modules/logContent', LogContentModule)
 
-        window.Quill.register('modules/clipboard', PlainClipboard, true)
-
-        const toolbarOptions = [
-          ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-          ['blockquote', 'code-block'],
-          [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-          [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-          [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-          [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-          [{ 'direction': 'rtl' }],                         // text direction
-          [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-          [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-          [{ 'font': FontAttributor.whitelist }],
-          [{ 'align': [] }],
-          ['link', 'image', 'video', 'formula'],            // embedding options
-          ['clean'],                                        // remove formatting button
-          ['undo', 'redo']                                  // undo and redo buttons
-        ]
-
-        const quillInstance = new window.Quill('#editor', {
-          theme: 'snow', // Use Snow theme
-          modules: {
-            toolbar: {
-              container: toolbarOptions,
-              handlers: {
-                link: function (value) {
-                  if (value) {
-                    const href = prompt('Enter the URL')
-                    this.quill.format('link', href)
-                  } else {
-                    this.quill.format('link', false)
-                  }
-                },
-                undo: function () {
-                  this.quill.history.undo()
-                },
-                redo: function () {
-                  this.quill.history.redo()
+            class PlainClipboard extends Clipboard {
+              convert(html = null) {
+                if (typeof html === 'string') {
+                  this.container.innerHTML = html
                 }
+                let text = this.container.innerText
+                this.container.innerHTML = ''
+                return new Delta().insert(text)
               }
-            },
-            syntax: { hljs: window.hljs }, // Enable syntax highlighting
-            table: true, // Enable table support
-            history: { // Enable history module with custom configurations
-              delay: 2000,
-              maxStack: 500,
-              userOnly: true
-            },
-            keyboard: {
-              bindings: {
-                customBold: {
-                  key: 'B',
-                  shortKey: true,
-                  handler: function(range, context) {
-                    this.quill.format('bold', !context.format.bold)
+            }
+
+            window.Quill.register('modules/clipboard', PlainClipboard, true)
+
+            const toolbarOptions = [
+              ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+              ['blockquote', 'code-block'],
+              [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+              [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+              [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+              [{ 'direction': 'rtl' }],                         // text direction
+              [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+              [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+              [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+              [{ 'font': FontAttributor.whitelist }],
+              [{ 'align': [] }],
+              ['link', 'image', 'video', 'formula'],            // embedding options
+              ['clean'],                                        // remove formatting button
+              ['undo', 'redo']                                  // undo and redo buttons
+            ]
+
+            const quillInstance = new window.Quill('#editor', {
+              theme: 'snow', // Use Snow theme
+              modules: {
+                toolbar: {
+                  container: toolbarOptions,
+                  handlers: {
+                    link: function (value) {
+                      if (value) {
+                        const href = prompt('Enter the URL')
+                        this.quill.format('link', href)
+                      } else {
+                        this.quill.format('link', false)
+                      }
+                    },
+                    undo: function () {
+                      this.quill.history.undo()
+                    },
+                    redo: function () {
+                      this.quill.history.redo()
+                    }
                   }
                 },
-                customItalic: {
-                  key: 'I',
-                  shortKey: true,
-                  handler: function(range, context) {
-                    this.quill.format('italic', !context.format.italic)
+                syntax: { hljs: window.hljs }, // Enable syntax highlighting
+                table: true, // Enable table support
+                history: { // Enable history module with custom configurations
+                  delay: 2000,
+                  maxStack: 500,
+                  userOnly: true
+                },
+                keyboard: {
+                  bindings: {
+                    customBold: {
+                      key: 'B',
+                      shortKey: true,
+                      handler: function(range, context) {
+                        this.quill.format('bold', !context.format.bold)
+                      }
+                    },
+                    customItalic: {
+                      key: 'I',
+                      shortKey: true,
+                      handler: function(range, context) {
+                        this.quill.format('italic', !context.format.italic)
+                      }
+                    }
                   }
-                }
-              }
-            },
-            clipboard: {
-              matchers: [
-                ['B', (node, delta) => {
-                  return delta.compose(new Delta().retain(delta.length(), { bold: true }))
-                }],
-                [Node.TEXT_NODE, (node, delta) => {
-                  return new Delta().insert(node.data)
-                }]
+                },
+                clipboard: {
+                  matchers: [
+                    ['B', (node, delta) => {
+                      return delta.compose(new Delta().retain(delta.length(), { bold: true }))
+                    }],
+                    [Node.TEXT_NODE, (node, delta) => {
+                      return new Delta().insert(node.data)
+                    }]
+                  ]
+                },
+                logContent: true // Enable custom log content module
+              },
+              placeholder: 'Compose an epic...',
+              formats: [
+                'background', 'bold', 'color', 'font', 'code', 'italic', 'link', 'size', 'strike', 'script', 'underline',
+                'blockquote', 'header', 'indent', 'list', 'align', 'direction', 'code-block', 'formula', 'image', 'video'
               ]
-            },
-            logContent: true // Enable custom log content module
-          },
-          placeholder: 'Compose an epic...',
-          formats: [
-            'background', 'bold', 'color', 'font', 'code', 'italic', 'link', 'size', 'strike', 'script', 'underline',
-            'blockquote', 'header', 'indent', 'list', 'align', 'direction', 'code-block', 'formula', 'image', 'video'
-          ]
-        })
-        quillInstance.on('text-change', () => {
-          setContent(quillInstance.root.innerHTML)
-          console.log('Editor content changed:', quillInstance.root.innerHTML)
-        })
-        setQuill(quillInstance)
+            })
+            quillInstance.on('text-change', () => {
+              setContent(quillInstance.root.innerHTML)
+              console.log('Editor content changed:', quillInstance.root.innerHTML)
+            })
+            setQuill(quillInstance)
+          }
+          document.body.appendChild(autoRenderScript)
+        }
+        document.body.appendChild(katexScript)
       }
       document.body.appendChild(hljsScript)
     }
     document.body.appendChild(script)
   }, [])
-
-  const handleInsertText = () => {
-    if (quill) {
-      quill.insertText(0, 'Hello, Quill!', 'bold', true)
-    }
-  }
-
-  const handleGetText = () => {
-    if (quill) {
-      const text = quill.getText(0, 10)
-      console.log('First 10 characters:', text)
-    }
-  }
-
-  const handleApplyDelta = () => {
-    if (quill) {
-      const Delta = window.Quill.import('delta')
-      const delta = new Delta()
-        .retain(7) // Keep 'Hello, '
-        .insert('World', { color: '#ff0000' }) // Insert 'World' with red color
-        .delete(6) // Delete 'Quill!'
-      quill.updateContents(delta)
-    }
-  }
-
-  const handlePasteHTML = () => {
-    if (quill) {
-      quill.clipboard.dangerouslyPasteHTML('<p><b>Bold Text</b> and <i>Italic Text</i></p>')
-    }
-  }
 
   return (
     <div className="writer-portal-container">
@@ -213,10 +193,6 @@ const WriterPortal = () => {
         <div id="editor">
           <p>Start writing your article...</p>
         </div>
-        <button onClick={handleInsertText}>Insert Text</button>
-        <button onClick={handleGetText}>Get Text</button>
-        <button onClick={handleApplyDelta}>Apply Delta</button>
-        <button onClick={handlePasteHTML}>Paste HTML</button>
       </section>
       <Footer3 />
     </div>
