@@ -18,6 +18,7 @@ import ArticleDetails from './views/article-details'
 import About from './views/about'
 import Contact from './views/contact'
 import PaymentDetails from './views/payment-details'
+import WriterPortal from './views/writer-portal'
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route component={Contact} exact path="/contact" />
         <Route component={Home} exact path="/" />
         <Route component={PaymentDetails} exact path="/payment-details" />
+        <Route component={WriterPortal} exact path="/writer-portal"/>
         <Route component={NotFound} path="**" />
         <Redirect to="**" />
       </Switch>

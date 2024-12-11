@@ -964,7 +964,7 @@ html, body {
     line-height: 21px;
   }
   .home-view4 {
-    margin-top: var(--dl-space-space-unit);
+    margin-top: var (--dl-space-space-unit);
   }
   .home-image29 {
     width: 100%;
@@ -1049,4 +1049,7 @@ html, body {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+.footer3root-class-name {
+  /* Add any specific styles for the footer if needed */
 }
