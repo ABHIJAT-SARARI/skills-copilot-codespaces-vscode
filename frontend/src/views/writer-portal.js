@@ -1,36 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import './writer-portal.css'
 import Footer3 from '../components/footer3'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
 
 const WriterPortal = () => {
   const [title, setTitle] = useState('')
   const [tags, setTags] = useState('')
   const [content, setContent] = useState('')
+  const [quill, setQuill] = useState(null)
 
-  const handleEditorChange = (value) => {
-    setContent(value)
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = 'https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js'
+    script.onload = () => {
+      const quillInstance = new window.Quill('#editor', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            [{ 'header': [1, 2, 3, 4, false] }],
+            [{ 'font': [] }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
+            [{ 'align': [] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            ['link', 'image', 'video', 'formula'],
+            ['clean']
+          ],
+          syntax: true, // Enable syntax highlighting
+          table: true // Enable table support
+        },
+        placeholder: 'Compose an epic...',
+        formats: [
+          'background', 'bold', 'color', 'font', 'code', 'italic', 'link', 'size', 'strike', 'script', 'underline',
+          'blockquote', 'header', 'indent', 'list', 'align', 'direction', 'code-block', 'formula', 'image', 'video'
+        ]
+      })
+      quillInstance.on('text-change', () => {
+        setContent(quillInstance.root.innerHTML)
+        console.log('Editor content changed:', quillInstance.root.innerHTML)
+      })
+      setQuill(quillInstance)
+    }
+    document.body.appendChild(script)
+  }, [])
+
+  const handleInsertText = () => {
+    if (quill) {
+      quill.insertText(0, 'Hello, Quill!', 'bold', true)
+    }
   }
 
-  const modules = {
-    toolbar: [
-      [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
-      [{ 'align': [] }],
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'indent': '-1'}, { 'indent': '+1' }, { 'lineheight': [] }],
-      ['link', 'image', 'video', 'table', 'blockquote', 'hr'],
-      ['clean']
-    ]
+  const handleGetText = () => {
+    if (quill) {
+      const text = quill.getText(0, 10)
+      console.log('First 10 characters:', text)
+    }
   }
-
-  const formats = [
-    'header', 'font', 'list', 'bullet', 'check', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block', 'align', 'color', 'background', 'indent', 'lineheight', 'link', 'image', 'video', 'table', 'hr'
-  ]
 
   return (
     <div className="writer-portal-container">
@@ -65,13 +92,11 @@ const WriterPortal = () => {
             required
           />
         </form>
-        <ReactQuill
-          value={content}
-          onChange={handleEditorChange}
-          modules={modules}
-          formats={formats}
-          theme="snow"
-        />
+        <div id="editor">
+          <p>Start writing your article...</p>
+        </div>
+        <button onClick={handleInsertText}>Insert Text</button>
+        <button onClick={handleGetText}>Get Text</button>
       </section>
       <Footer3 />
     </div>
