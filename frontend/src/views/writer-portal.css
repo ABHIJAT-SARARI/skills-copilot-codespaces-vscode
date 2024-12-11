@@ -1,0 +1,47 @@
+.writer-portal-container {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background-color: #27272D;
+  color: #fff;
+}
+
+.writer-portal-header {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.writer-portal-content {
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.writer-portal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.writer-portal-form input,
+.writer-portal-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.writer-portal-form button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.writer-portal-form button:hover {
+  background-color: #0056b3;
+}

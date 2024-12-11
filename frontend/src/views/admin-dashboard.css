@@ -1,0 +1,24 @@
+.admin-dashboard-container {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background-color: #27272D;
+  color: #fff;
+}
+
+.admin-dashboard-header {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.admin-dashboard-content {
+  width: 80%;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.admin-dashboard-section {
+  margin-bottom: 20px;
+}

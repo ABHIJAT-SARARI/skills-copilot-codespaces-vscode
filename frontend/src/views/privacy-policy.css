@@ -1,0 +1,20 @@
+.privacy-policy-container {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background-color: #27272D;
+  color: #fff;
+}
+
+.privacy-policy-header {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.privacy-policy-content {
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto;
+}
